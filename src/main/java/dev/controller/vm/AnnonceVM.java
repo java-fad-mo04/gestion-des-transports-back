@@ -5,9 +5,13 @@ import java.time.LocalDateTime;
 import dev.domain.Annonce;
 import dev.domain.Statut;
 
+/**
+ * Structure modèlisant une annonce servant à communiquer avec l'extérieur (WEB
+ * API).
+ */
 public class AnnonceVM {
 
-	private Integer id;
+	private Long id;
 	private String adresseDepart;
 	private String adresseArrivee;
 	private String immatriculation;
@@ -16,7 +20,7 @@ public class AnnonceVM {
 	private Integer nombrePlacesDispo;
 	private LocalDateTime dateDepart;
 	private Statut statut;
-	private CollegueVM collegue;
+	private CollaborateurVM collaborateur;
 
 	public AnnonceVM() {
 	}
@@ -31,18 +35,18 @@ public class AnnonceVM {
 		this.nombrePlacesDispo = annonce.getNombrePlacesDispo();
 		this.dateDepart = annonce.getDateDepart();
 		this.statut = annonce.getStatut();
-		this.collegue = new CollegueVM(annonce.getCollegue());
+		this.collaborateur = new CollaborateurVM(annonce.getCollaborateur());
 	}
 
 	public Annonce toAnnonce() {
 		return new Annonce(this.id, this.adresseDepart, this.adresseArrivee, this.immatriculation, this.marque,
-				this.modele, this.nombrePlacesDispo, this.dateDepart, this.statut, collegue.toCollegue());
+				this.modele, this.nombrePlacesDispo, this.dateDepart, this.statut, collaborateur.toCollaborateur());
 	}
 
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -50,7 +54,7 @@ public class AnnonceVM {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -175,18 +179,18 @@ public class AnnonceVM {
 	}
 
 	/**
-	 * @return the collegue
+	 * @return the collaborateur
 	 */
-	public CollegueVM getCollegue() {
-		return collegue;
+	public CollaborateurVM getCollaborateur() {
+		return collaborateur;
 	}
 
 	/**
-	 * @param collegue
-	 *            the collegue to set
+	 * @param collaborateur
+	 *            the collaborateur to set
 	 */
-	public void setCollegue(CollegueVM collegue) {
-		this.collegue = collegue;
+	public void setCollaborateur(CollaborateurVM collaborateur) {
+		this.collaborateur = collaborateur;
 	}
 
 }

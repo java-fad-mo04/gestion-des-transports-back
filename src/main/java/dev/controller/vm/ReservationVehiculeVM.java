@@ -5,13 +5,17 @@ import java.time.LocalDateTime;
 import dev.domain.ReservationVehicule;
 import dev.domain.Vehicule;
 
+/**
+ * Structure modèlisant une réservation de véhicule servant à communiquer avec
+ * l'extérieur (WEB API).
+ */
 public class ReservationVehiculeVM {
 
-	private Integer id;
+	private Long id;
 	private LocalDateTime dateDebut;
 	private LocalDateTime dateFin;
 	private boolean avecChauffeur;
-	private CollegueVM collegue;
+	private CollaborateurVM collaborateur;
 	private Vehicule vehicule;
 	private ChauffeurVM chauffeur;
 
@@ -23,7 +27,7 @@ public class ReservationVehiculeVM {
 		this.dateDebut = resVehicule.getDateDebut();
 		this.dateFin = resVehicule.getDateFin();
 		this.avecChauffeur = resVehicule.isAvecChauffeur();
-		this.collegue = new CollegueVM(resVehicule.getCollegue());
+		this.collaborateur = new CollaborateurVM(resVehicule.getCollaborateur());
 		this.vehicule = resVehicule.getVehicule();
 		if (resVehicule.getChauffeur() != null)
 			this.chauffeur = new ChauffeurVM(resVehicule.getChauffeur());
@@ -31,14 +35,14 @@ public class ReservationVehiculeVM {
 
 	public ReservationVehicule toReservationVehicule() {
 		return new ReservationVehicule(this.id, this.dateDebut, this.dateFin, this.avecChauffeur,
-				this.collegue.toCollegue(), this.vehicule, this.chauffeur.toChauffeur());
+				this.collaborateur.toCollaborateur(), this.vehicule, this.chauffeur.toChauffeur());
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -66,12 +70,12 @@ public class ReservationVehiculeVM {
 		this.avecChauffeur = avecChauffeur;
 	}
 
-	public CollegueVM getCollegue() {
-		return collegue;
+	public CollaborateurVM getCollaborateur() {
+		return collaborateur;
 	}
 
-	public void setCollegue(CollegueVM collegue) {
-		this.collegue = collegue;
+	public void setCollaborateur(CollaborateurVM collaborateur) {
+		this.collaborateur = collaborateur;
 	}
 
 	public Vehicule getVehicule() {

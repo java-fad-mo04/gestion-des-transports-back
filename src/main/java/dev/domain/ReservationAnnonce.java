@@ -18,11 +18,11 @@ import javax.persistence.UniqueConstraint;
  *
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "annonce_id", "collegue_id" }))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "annonce_id", "collaborateur_id" }))
 public class ReservationAnnonce {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	/** Identifiant d'une réservation de covoiturage */
 
 	@ManyToOne
@@ -31,8 +31,8 @@ public class ReservationAnnonce {
 	/** Annonce de la réservation */
 
 	@ManyToOne
-	@JoinColumn(name = "collegue_id")
-	private Collegue collegue;
+	@JoinColumn(name = "collaborateur_id")
+	private Collaborateur collaborateur;
 	/** Passager du covoiturage */
 
 	@Enumerated(EnumType.STRING)
@@ -46,21 +46,21 @@ public class ReservationAnnonce {
 	public ReservationAnnonce() {
 	}
 
-	public ReservationAnnonce(Annonce annonce, Collegue collegue, Statut statut) {
+	public ReservationAnnonce(Annonce annonce, Collaborateur collaborateur, Statut statut) {
 		this.annonce = annonce;
-		this.collegue = collegue;
+		this.collaborateur = collaborateur;
 		this.statut = statut;
 	}
 
-	public ReservationAnnonce(Integer id, Annonce annonce, Collegue collegue, Statut statut) {
-		this(annonce, collegue, statut);
+	public ReservationAnnonce(Long id, Annonce annonce, Collaborateur collaborateur, Statut statut) {
+		this(annonce, collaborateur, statut);
 		this.id = id;
 	}
 
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -68,7 +68,7 @@ public class ReservationAnnonce {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -88,18 +88,18 @@ public class ReservationAnnonce {
 	}
 
 	/**
-	 * @return the collegue
+	 * @return the collaborateur
 	 */
-	public Collegue getCollegue() {
-		return collegue;
+	public Collaborateur getCollaborateur() {
+		return collaborateur;
 	}
 
 	/**
-	 * @param collegue
-	 *            the collegue to set
+	 * @param collaborateur
+	 *            the collaborateur to set
 	 */
-	public void setCollegue(Collegue collegue) {
-		this.collegue = collegue;
+	public void setCollaborateur(Collaborateur collaborateur) {
+		this.collaborateur = collaborateur;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class ReservationAnnonce {
 	 */
 	@Override
 	public String toString() {
-		return "Passager [annonce=" + annonce + ", collegue=" + collegue + ", statut=" + statut + "]";
+		return "Passager [annonce=" + annonce + ", collaborateur=" + collaborateur + ", statut=" + statut + "]";
 	}
 
 }

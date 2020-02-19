@@ -15,18 +15,18 @@ import org.springframework.stereotype.Component;
 import dev.domain.Annonce;
 import dev.domain.CategorieVehicule;
 import dev.domain.Chauffeur;
-import dev.domain.Collegue;
+import dev.domain.Collaborateur;
 import dev.domain.ReservationAnnonce;
 import dev.domain.ReservationVehicule;
 import dev.domain.Role;
-import dev.domain.RoleCollegue;
+import dev.domain.RoleCollaborateur;
 import dev.domain.Statut;
 import dev.domain.StatutVehicule;
 import dev.domain.Vehicule;
 import dev.domain.Version;
 import dev.repository.AnnonceRepo;
 import dev.repository.ChauffeurRepo;
-import dev.repository.CollegueRepo;
+import dev.repository.CollaborateurRepo;
 import dev.repository.ReservationVehiculeRepo;
 import dev.repository.VehiculeRepo;
 import dev.repository.VersionRepo;
@@ -42,19 +42,19 @@ public class StartupListener {
 	private String appVersion;
 	private VersionRepo versionRepo;
 	private PasswordEncoder passwordEncoder;
-	private CollegueRepo collegueRepo;
+	private CollaborateurRepo collaborateurRepo;
 	private ChauffeurRepo chauffeurRepo;
 	private AnnonceRepo annonceRepo;
 	private VehiculeRepo vehiculeRepo;
 	private ReservationVehiculeRepo reserVehiRepo;
 
 	public StartupListener(@Value("${app.version}") String appVersion, VersionRepo versionRepo,
-			PasswordEncoder passwordEncoder, CollegueRepo collegueRepo, ChauffeurRepo chauffeurRepo,
+			PasswordEncoder passwordEncoder, CollaborateurRepo collaborateurRepo, ChauffeurRepo chauffeurRepo,
 			VehiculeRepo vehiculeRepo, AnnonceRepo annonceRepo, ReservationVehiculeRepo reserVehiRepo) {
 		this.appVersion = appVersion;
 		this.versionRepo = versionRepo;
 		this.passwordEncoder = passwordEncoder;
-		this.collegueRepo = collegueRepo;
+		this.collaborateurRepo = collaborateurRepo;
 		this.chauffeurRepo = chauffeurRepo;
 		this.vehiculeRepo = vehiculeRepo;
 		this.annonceRepo = annonceRepo;
@@ -65,39 +65,39 @@ public class StartupListener {
 	public void onStart() {
 		this.versionRepo.save(new Version(appVersion));
 
-		// Création de deux utilisateurs
+		// Création de collaborateurs
 
-		Collegue col1 = new Collegue();
+		Collaborateur col1 = new Collaborateur();
 		col1.setNom("Admin");
 		col1.setPrenom("DEV");
 		col1.setEmail("admin@dev.fr");
 		col1.setMotDePasse(passwordEncoder.encode("superpass"));
-		col1.setRoles(Arrays.asList(new RoleCollegue(col1, Role.ROLE_ADMINISTRATEUR),
-				new RoleCollegue(col1, Role.ROLE_UTILISATEUR)));
-		this.collegueRepo.save(col1);
+		col1.setRoles(Arrays.asList(new RoleCollaborateur(col1, Role.ROLE_ADMINISTRATEUR),
+				new RoleCollaborateur(col1, Role.ROLE_UTILISATEUR)));
+		this.collaborateurRepo.save(col1);
 
-		Collegue col2 = new Collegue();
+		Collaborateur col2 = new Collaborateur();
 		col2.setNom("User");
 		col2.setPrenom("DEV");
 		col2.setEmail("user@dev.fr");
 		col2.setMotDePasse(passwordEncoder.encode("superpass"));
-		col2.setRoles(Arrays.asList(new RoleCollegue(col2, Role.ROLE_UTILISATEUR)));
-		this.collegueRepo.save(col2);
+		col2.setRoles(Arrays.asList(new RoleCollaborateur(col2, Role.ROLE_UTILISATEUR)));
+		this.collaborateurRepo.save(col2);
 
 		Chauffeur col3 = new Chauffeur(null, "JEAN", "Dimitri", "d.jean@gmail.com", passwordEncoder.encode("Soleil123"),
 				"0748859586", null, "DE54869233", "154884818484");
-		col3.setRoles(Arrays.asList(new RoleCollegue(col3, Role.ROLE_UTILISATEUR)));
+		col3.setRoles(Arrays.asList(new RoleCollaborateur(col3, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(col3);
 
-		Collegue col4 = new Collegue(null, "KAFE", "Josh", "j.kafe@orange.fr", passwordEncoder.encode("Soleil123"),
-				"0798521258", null);
-		col4.setRoles(Arrays.asList(new RoleCollegue(col4, Role.ROLE_UTILISATEUR)));
-		this.collegueRepo.save(col4);
+		Collaborateur col4 = new Collaborateur(null, "KAFE", "Josh", "j.kafe@orange.fr",
+				passwordEncoder.encode("Soleil123"), "0798521258", null);
+		col4.setRoles(Arrays.asList(new RoleCollaborateur(col4, Role.ROLE_UTILISATEUR)));
+		this.collaborateurRepo.save(col4);
 
-		Collegue col5 = new Collegue(null, "LAROCHE", "Mattis", "m.laroche@gmail.com",
+		Collaborateur col5 = new Collaborateur(null, "LAROCHE", "Mattis", "m.laroche@gmail.com",
 				passwordEncoder.encode("Soleil123"), "0658124125", null);
-		col5.setRoles(Arrays.asList(new RoleCollegue(col5, Role.ROLE_UTILISATEUR)));
-		this.collegueRepo.save(col5);
+		col5.setRoles(Arrays.asList(new RoleCollaborateur(col5, Role.ROLE_UTILISATEUR)));
+		this.collaborateurRepo.save(col5);
 
 		/** Exemples de véhicules */
 		Vehicule v1 = new Vehicule(null, "Citroën", "Xantia", CategorieVehicule.BERLINES_M,
@@ -119,15 +119,15 @@ public class StartupListener {
 		}
 
 		/** Exemple de réservation de véhicule de fonction */
-		ReservationVehicule rv1 = new ReservationVehicule(1,
+		ReservationVehicule rv1 = new ReservationVehicule(null,
 				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
 				LocalDateTime.parse("17/12/2019 21:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), false, col5,
 				v2, null);
-		ReservationVehicule rv2 = new ReservationVehicule(2,
+		ReservationVehicule rv2 = new ReservationVehicule(null,
 				LocalDateTime.parse("01/11/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
 				LocalDateTime.parse("02/11/2019 21:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), false, col5,
 				v3, null);
-		ReservationVehicule rv3 = new ReservationVehicule(3,
+		ReservationVehicule rv3 = new ReservationVehicule(null,
 				LocalDateTime.parse("10/05/2019 07:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
 				LocalDateTime.parse("10/05/2019 14:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), true, col4,
 				v5, col3);

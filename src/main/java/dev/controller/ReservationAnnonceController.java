@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.controller.vm.ReservationAnnonceVM;
 import dev.domain.Annonce;
-import dev.domain.Collegue;
+import dev.domain.Collaborateur;
 import dev.repository.ReservationAnnonceRepo;
 
 @RestController
@@ -32,7 +32,7 @@ public class ReservationAnnonceController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "resa", params = "id")
-	public List<ReservationAnnonceVM> getAllFromAnnonce(Integer id) {
+	public List<ReservationAnnonceVM> getAllFromAnnonce(Long id) {
 		Annonce annonce = new Annonce();
 		annonce.setId(id);
 		return this.resaRepo.findAllByAnnonce(annonce).stream().map(res -> new ReservationAnnonceVM(res))
@@ -40,16 +40,16 @@ public class ReservationAnnonceController {
 	}
 
 	/**
-	 * Renvoie la liste des réservations d'un collègue
+	 * Renvoie la liste des réservations d'un collaborateur
 	 * 
 	 * @param cid
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "resa", params = "cid")
-	public List<ReservationAnnonceVM> getAllFromCollegue(Long cid) {
-		Collegue collegue = new Collegue();
-		collegue.setId(cid);
-		return this.resaRepo.findAllByCollegue(collegue).stream().map(res -> new ReservationAnnonceVM(res))
+	public List<ReservationAnnonceVM> getAllFromCollaborateur(Long cid) {
+		Collaborateur collaborateur = new Collaborateur();
+		collaborateur.setId(cid);
+		return this.resaRepo.findAllByCollaborateur(collaborateur).stream().map(res -> new ReservationAnnonceVM(res))
 				.collect(Collectors.toList());
 	}
 

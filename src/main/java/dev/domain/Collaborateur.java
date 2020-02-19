@@ -12,7 +12,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 /**
- * Représente le concept de collègue
+ * Représente le concept de collaborateur
  * 
  * @author Diginamc
  *
@@ -20,39 +20,39 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Collegue {
+public class Collaborateur {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	/** Identifiant d'un collegue */
+	/** Identifiant d'un collaborateur */
 
 	private String nom;
-	/** Nom d'un collègue */
+	/** Nom d'un collaborateur */
 
 	private String prenom;
-	/** Prénom d'une collègue */
+	/** Prénom d'une collaborateur */
 
 	private String email;
-	/** Adresse email d'un collègue */
+	/** Adresse email d'un collaborateur */
 
 	private String motDePasse;
-	/** Mot de passe d'un collègue */
+	/** Mot de passe d'un collaborateur */
 
 	private String numeroTel;
-	/** Numéro de téléphone d'un collègue */
+	/** Numéro de téléphone d'un collaborateur */
 
-	@OneToMany(mappedBy = "collegue", cascade = CascadeType.PERSIST)
-	private List<RoleCollegue> roles;
+	@OneToMany(mappedBy = "collaborateur", cascade = CascadeType.PERSIST)
+	private List<RoleCollaborateur> roles;
 
 	/**
 	 * Constructeurs
 	 */
-	public Collegue() {
+	public Collaborateur() {
 	}
 
-	public Collegue(Long id, String nom, String prenom, String email, String motDePasse, String numeroTel,
-			List<RoleCollegue> roles) {
+	public Collaborateur(Long id, String nom, String prenom, String email, String motDePasse, String numeroTel,
+			List<RoleCollaborateur> roles) {
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -94,11 +94,11 @@ public class Collegue {
 		this.motDePasse = motDePasse;
 	}
 
-	public List<RoleCollegue> getRoles() {
+	public List<RoleCollaborateur> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<RoleCollegue> roles) {
+	public void setRoles(List<RoleCollaborateur> roles) {
 		this.roles = roles;
 	}
 

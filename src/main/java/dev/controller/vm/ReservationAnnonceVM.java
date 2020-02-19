@@ -3,11 +3,15 @@ package dev.controller.vm;
 import dev.domain.ReservationAnnonce;
 import dev.domain.Statut;
 
+/**
+ * Structure modèlisant une réservation de covoiturage servant à communiquer
+ * avec l'extérieur (WEB API).
+ */
 public class ReservationAnnonceVM {
 
-	private Integer id;
+	private Long id;
 	private AnnonceVM annonce;
-	private CollegueVM collegue;
+	private CollaborateurVM collaborateur;
 	private Statut statut;
 
 	/**
@@ -22,18 +26,19 @@ public class ReservationAnnonceVM {
 	public ReservationAnnonceVM(ReservationAnnonce resAnnonce) {
 		this.id = resAnnonce.getId();
 		this.annonce = new AnnonceVM(resAnnonce.getAnnonce());
-		this.collegue = new CollegueVM(resAnnonce.getCollegue());
+		this.collaborateur = new CollaborateurVM(resAnnonce.getCollaborateur());
 		this.statut = resAnnonce.getStatut();
 	}
 
 	public ReservationAnnonce toReservationAnnonce() {
-		return new ReservationAnnonce(this.id, this.annonce.toAnnonce(), this.collegue.toCollegue(), this.statut);
+		return new ReservationAnnonce(this.id, this.annonce.toAnnonce(), this.collaborateur.toCollaborateur(),
+				this.statut);
 	}
 
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -41,7 +46,7 @@ public class ReservationAnnonceVM {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -61,18 +66,18 @@ public class ReservationAnnonceVM {
 	}
 
 	/**
-	 * @return the collegue
+	 * @return the collaborateur
 	 */
-	public CollegueVM getCollegue() {
-		return collegue;
+	public CollaborateurVM getCollaborateur() {
+		return collaborateur;
 	}
 
 	/**
-	 * @param collegue
-	 *            the collegue to set
+	 * @param collaborateur
+	 *            the collaborateur to set
 	 */
-	public void setCollegue(CollegueVM collegue) {
-		this.collegue = collegue;
+	public void setCollaborateur(CollaborateurVM collaborateur) {
+		this.collaborateur = collaborateur;
 	}
 
 	/**

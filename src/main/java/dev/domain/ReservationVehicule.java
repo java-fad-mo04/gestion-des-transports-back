@@ -20,7 +20,7 @@ public class ReservationVehicule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	/** Identifiant d'une réservation de véhicule */
 
 	private LocalDateTime dateDebut;
@@ -35,9 +35,9 @@ public class ReservationVehicule {
 	 */
 
 	@ManyToOne
-	@JoinColumn(name = "collegue_id")
-	private Collegue collegue;
-	/** Collègue ayant effectué la réservation */
+	@JoinColumn(name = "collaborateur_id")
+	private Collaborateur collaborateur;
+	/** Collaborateur ayant effectué la réservation */
 
 	@ManyToOne
 	@JoinColumn(name = "vehicule_id")
@@ -56,13 +56,13 @@ public class ReservationVehicule {
 	public ReservationVehicule() {
 	}
 
-	public ReservationVehicule(Integer id, LocalDateTime dateDebut, LocalDateTime dateFin, boolean avecChauffeur,
-			Collegue collegue, Vehicule vehicule, Chauffeur chauffeur) {
+	public ReservationVehicule(Long id, LocalDateTime dateDebut, LocalDateTime dateFin, boolean avecChauffeur,
+			Collaborateur collaborateur, Vehicule vehicule, Chauffeur chauffeur) {
 		this.id = id;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.avecChauffeur = avecChauffeur;
-		this.collegue = collegue;
+		this.collaborateur = collaborateur;
 		this.vehicule = vehicule;
 		this.chauffeur = chauffeur;
 	}
@@ -70,7 +70,7 @@ public class ReservationVehicule {
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -78,7 +78,7 @@ public class ReservationVehicule {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -128,18 +128,18 @@ public class ReservationVehicule {
 	}
 
 	/**
-	 * @return the collegue
+	 * @return the collaborateur
 	 */
-	public Collegue getCollegue() {
-		return collegue;
+	public Collaborateur getCollaborateur() {
+		return collaborateur;
 	}
 
 	/**
-	 * @param collegue
-	 *            the collegue to set
+	 * @param collaborateur
+	 *            the collaborateur to set
 	 */
-	public void setCollegue(Collegue collegue) {
-		this.collegue = collegue;
+	public void setCollaborateur(Collaborateur collaborateur) {
+		this.collaborateur = collaborateur;
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class ReservationVehicule {
 	@Override
 	public String toString() {
 		return "ReservationVehicule [id=" + id + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin
-				+ ", avecChauffeur=" + avecChauffeur + ", collegue=" + collegue + ", vehicule=" + vehicule
+				+ ", avecChauffeur=" + avecChauffeur + ", collaborateur=" + collaborateur + ", vehicule=" + vehicule
 				+ ", chauffeur=" + chauffeur + "]";
 	}
 }

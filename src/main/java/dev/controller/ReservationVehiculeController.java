@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.controller.vm.ReservationVehiculeVM;
 import dev.domain.Chauffeur;
-import dev.domain.Collegue;
+import dev.domain.Collaborateur;
 import dev.domain.Vehicule;
 import dev.repository.ReservationVehiculeRepo;
 
@@ -33,7 +33,7 @@ public class ReservationVehiculeController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "resv", params = "vid")
-	public List<ReservationVehiculeVM> getAllFromVehicule(Integer vid) {
+	public List<ReservationVehiculeVM> getAllFromVehicule(Long vid) {
 		Vehicule vehicule = new Vehicule();
 		vehicule.setId(vid);
 		return this.resvRepo.findAllByVehicule(vehicule).stream().map(res -> new ReservationVehiculeVM(res))
@@ -41,16 +41,16 @@ public class ReservationVehiculeController {
 	}
 
 	/**
-	 * Renvoie la liste des réservations de véhicule d'un collègue
+	 * Renvoie la liste des réservations de véhicule d'un collaborateur
 	 * 
 	 * @param cid
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "resv", params = "cid")
-	public List<ReservationVehiculeVM> getAllFromCollegue(Long cid) {
-		Collegue collegue = new Collegue();
-		collegue.setId(cid);
-		return this.resvRepo.findAllByCollegue(collegue).stream().map(res -> new ReservationVehiculeVM(res))
+	public List<ReservationVehiculeVM> getAllFromCollaborateur(Long cid) {
+		Collaborateur collaborateur = new Collaborateur();
+		collaborateur.setId(cid);
+		return this.resvRepo.findAllByCollaborateur(collaborateur).stream().map(res -> new ReservationVehiculeVM(res))
 				.collect(Collectors.toList());
 	}
 
@@ -64,7 +64,7 @@ public class ReservationVehiculeController {
 	public List<ReservationVehiculeVM> getAllFromChauffeur(Long chid) {
 		Chauffeur chauffeur = new Chauffeur();
 		chauffeur.setId(chid);
-		return this.resvRepo.findAllByCollegue(chauffeur).stream().map(res -> new ReservationVehiculeVM(res))
+		return this.resvRepo.findAllByCollaborateur(chauffeur).stream().map(res -> new ReservationVehiculeVM(res))
 				.collect(Collectors.toList());
 	}
 

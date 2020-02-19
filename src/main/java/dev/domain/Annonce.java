@@ -26,7 +26,7 @@ public class Annonce {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	/** Identifiant de l'annonce */
 
 	private String adresseDepart;
@@ -55,15 +55,15 @@ public class Annonce {
 	/** Statut de l'annonce ACTIF, "ANNULE */
 
 	@ManyToOne
-	@JoinColumn(name = "collegue_id")
-	private Collegue collegue;
+	@JoinColumn(name = "collaborateur_id")
+	private Collaborateur collaborateur;
 
 	@OneToMany(mappedBy = "annonce", cascade = CascadeType.PERSIST)
 	private List<ReservationAnnonce> reservations;
 
 	/** Liste des réservations */
 
-	/** Collègue ayant posté l'annonce */
+	/** Collaborateur ayant posté l'annonce */
 
 	/**
 	 * Constructeurs
@@ -72,8 +72,9 @@ public class Annonce {
 		this.reservations = new ArrayList<ReservationAnnonce>();
 	}
 
-	public Annonce(Integer id, String adresseDepart, String adresseArrivee, String immatriculation, String marque,
-			String modele, Integer nombrePlacesDispo, LocalDateTime dateDepart, Statut statut, Collegue collegue) {
+	public Annonce(Long id, String adresseDepart, String adresseArrivee, String immatriculation, String marque,
+			String modele, Integer nombrePlacesDispo, LocalDateTime dateDepart, Statut statut,
+			Collaborateur collaborateur) {
 		this();
 		this.id = id;
 		this.adresseDepart = adresseDepart;
@@ -84,21 +85,21 @@ public class Annonce {
 		this.nombrePlacesDispo = nombrePlacesDispo;
 		this.dateDepart = dateDepart;
 		this.statut = statut;
-		this.collegue = collegue;
+		this.collaborateur = collaborateur;
 	}
 
-	public Annonce(Integer id, String adresseDepart, String adresseArrivee, String immatriculation, String marque,
-			String modele, Integer nombrePlacesDispo, LocalDateTime dateDepart, Statut statut, Collegue collegue,
-			List<ReservationAnnonce> reservations) {
+	public Annonce(Long id, String adresseDepart, String adresseArrivee, String immatriculation, String marque,
+			String modele, Integer nombrePlacesDispo, LocalDateTime dateDepart, Statut statut,
+			Collaborateur collaborateur, List<ReservationAnnonce> reservations) {
 		this(id, adresseDepart, adresseArrivee, immatriculation, marque, modele, nombrePlacesDispo, dateDepart, statut,
-				collegue);
+				collaborateur);
 		this.reservations = reservations;
 	}
 
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -106,7 +107,7 @@ public class Annonce {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -231,18 +232,18 @@ public class Annonce {
 	}
 
 	/**
-	 * @return the collegue
+	 * @return the collaborateur
 	 */
-	public Collegue getCollegue() {
-		return collegue;
+	public Collaborateur getCollaborateur() {
+		return collaborateur;
 	}
 
 	/**
-	 * @param collegue
-	 *            the collegue to set
+	 * @param collaborateur
+	 *            the collaborateur to set
 	 */
-	public void setCollegue(Collegue collegue) {
-		this.collegue = collegue;
+	public void setCollaborateur(Collaborateur collaborateur) {
+		this.collaborateur = collaborateur;
 	}
 
 	/**
@@ -270,7 +271,7 @@ public class Annonce {
 		return "Annonce [id=" + id + ", adresseDepart=" + adresseDepart + ", adresseArrivée=" + adresseArrivee
 				+ ", immatriculation=" + immatriculation + ", marque=" + marque + ", modele=" + modele
 				+ ", nombrePlacesDispo=" + nombrePlacesDispo + ", dateDepart=" + dateDepart + ", statut=" + statut
-				+ ", collegue=" + collegue + "]";
+				+ ", collaborateur=" + collaborateur + "]";
 	}
 
 }

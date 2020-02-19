@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dev.domain.Chauffeur;
-import dev.domain.RoleCollegue;
+import dev.domain.RoleCollaborateur;
 
-public class ChauffeurVM extends CollegueVM {
+/**
+ * Structure modèlisant un chauffeur servant à communiquer avec l'extérieur (WEB
+ * API).
+ */
+public class ChauffeurVM extends CollaborateurVM {
 
 	private String matricule;
 	private String numeroPermis;
@@ -30,7 +34,7 @@ public class ChauffeurVM extends CollegueVM {
 		ch.setNumeroTel(this.getNumeroTel());
 		ch.setMatricule(this.matricule);
 		ch.setNumeroPermis(this.numeroPermis);
-		List<RoleCollegue> rolesCollegue = this.getRoles().stream().map(role -> new RoleCollegue(ch, role))
+		List<RoleCollaborateur> rolesCollegue = this.getRoles().stream().map(role -> new RoleCollaborateur(ch, role))
 				.collect(Collectors.toList());
 		ch.setRoles(rolesCollegue);
 		return ch;
