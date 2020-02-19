@@ -9,7 +9,7 @@ import dev.domain.Collaborateur;
 import dev.domain.ReservationVehicule;
 import dev.domain.Vehicule;
 
-public interface ReservationVehiculeRepo extends JpaRepository<ReservationVehicule, Integer> {
+public interface ReservationVehiculeRepo extends JpaRepository<ReservationVehicule, Long> {
 
 	/** Récupérer les réservations pour un véhicule */
 	public List<ReservationVehicule> findAllByVehicule(Vehicule cehicule);

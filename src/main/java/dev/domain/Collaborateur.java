@@ -117,4 +117,9 @@ public class Collaborateur {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof Collaborateur && o != null && ((Collaborateur) o).getId().equals(this.id);
+	}
 }

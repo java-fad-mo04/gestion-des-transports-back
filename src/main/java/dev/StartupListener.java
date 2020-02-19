@@ -137,20 +137,20 @@ public class StartupListener {
 
 		/** Exemple d'annonces de covoiturage */
 		Annonce a1 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
-				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 5,
+				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
 				LocalDateTime.parse("10/11/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
 				Statut.ACTIF, col4);
 		a1.setReservations(Arrays.asList(new ReservationAnnonce(a1, col2, Statut.ACTIF),
 				new ReservationAnnonce(a1, col5, Statut.ACTIF)));
 		LOG.info(a1.toString());
 		Annonce a2 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
-				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 5,
+				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
 				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
 				Statut.ACTIF, col4);
 		a2.setReservations(Arrays.asList(new ReservationAnnonce(a2, col2, Statut.ANNULE),
 				new ReservationAnnonce(a2, col5, Statut.ACTIF)));
 		Annonce a3 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
-				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 5,
+				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
 				LocalDateTime.now(), Statut.ACTIF, col4);
 		for (Annonce a : Arrays.asList(a1, a2, a3)) {
 			this.annonceRepo.save(a);
