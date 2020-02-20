@@ -3,7 +3,6 @@ package dev.controller.vm;
 import java.time.LocalDateTime;
 
 import dev.domain.ReservationVehicule;
-import dev.domain.Vehicule;
 
 /**
  * Structure modèlisant une réservation de véhicule servant à communiquer avec
@@ -15,9 +14,9 @@ public class ReservationVehiculeVM {
 	private LocalDateTime dateDebut;
 	private LocalDateTime dateFin;
 	private boolean avecChauffeur;
-	private CollaborateurVM collaborateur;
-	private Vehicule vehicule;
-	private ChauffeurVM chauffeur;
+	private Long collaborateurId;
+	private Long vehiculeId;
+	private Long chauffeurId;
 
 	public ReservationVehiculeVM() {
 	}
@@ -27,15 +26,10 @@ public class ReservationVehiculeVM {
 		this.dateDebut = resVehicule.getDateDebut();
 		this.dateFin = resVehicule.getDateFin();
 		this.avecChauffeur = resVehicule.isAvecChauffeur();
-		this.collaborateur = new CollaborateurVM(resVehicule.getCollaborateur());
-		this.vehicule = resVehicule.getVehicule();
+		this.collaborateurId = resVehicule.getCollaborateur().getId();
+		this.vehiculeId = resVehicule.getVehicule().getId();
 		if (resVehicule.getChauffeur() != null)
-			this.chauffeur = new ChauffeurVM(resVehicule.getChauffeur());
-	}
-
-	public ReservationVehicule toReservationVehicule() {
-		return new ReservationVehicule(this.id, this.dateDebut, this.dateFin, this.avecChauffeur,
-				this.collaborateur.toCollaborateur(), this.vehicule, this.chauffeur.toChauffeur());
+			this.chauffeurId = resVehicule.getChauffeur().getId();
 	}
 
 	public Long getId() {
@@ -70,28 +64,28 @@ public class ReservationVehiculeVM {
 		this.avecChauffeur = avecChauffeur;
 	}
 
-	public CollaborateurVM getCollaborateur() {
-		return collaborateur;
+	public Long getCollaborateurId() {
+		return collaborateurId;
 	}
 
-	public void setCollaborateur(CollaborateurVM collaborateur) {
-		this.collaborateur = collaborateur;
+	public void setCollaborateurId(Long collaborateurId) {
+		this.collaborateurId = collaborateurId;
 	}
 
-	public Vehicule getVehicule() {
-		return vehicule;
+	public Long getVehiculeId() {
+		return vehiculeId;
 	}
 
-	public void setVehicule(Vehicule vehicule) {
-		this.vehicule = vehicule;
+	public void setVehiculeId(Long vehiculeId) {
+		this.vehiculeId = vehiculeId;
 	}
 
-	public ChauffeurVM getChauffeur() {
-		return chauffeur;
+	public Long getChauffeurId() {
+		return chauffeurId;
 	}
 
-	public void setChauffeur(ChauffeurVM chauffeur) {
-		this.chauffeur = chauffeur;
+	public void setChauffeurId(Long chauffeurId) {
+		this.chauffeurId = chauffeurId;
 	}
 
 }

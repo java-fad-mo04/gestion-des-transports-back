@@ -10,8 +10,8 @@ import dev.domain.Statut;
 public class ReservationAnnonceVM {
 
 	private Long id;
-	private AnnonceVM annonce;
-	private CollaborateurVM collaborateur;
+	private Long annonceId;
+	private Long collaborateurId;
 	private Statut statut;
 
 	/**
@@ -25,14 +25,9 @@ public class ReservationAnnonceVM {
 
 	public ReservationAnnonceVM(ReservationAnnonce resAnnonce) {
 		this.id = resAnnonce.getId();
-		this.annonce = new AnnonceVM(resAnnonce.getAnnonce());
-		this.collaborateur = new CollaborateurVM(resAnnonce.getCollaborateur());
+		this.annonceId = resAnnonce.getAnnonce().getId();
+		this.collaborateurId = resAnnonce.getCollaborateur().getId();
 		this.statut = resAnnonce.getStatut();
-	}
-
-	public ReservationAnnonce toReservationAnnonce() {
-		return new ReservationAnnonce(this.id, this.annonce.toAnnonce(), this.collaborateur.toCollaborateur(),
-				this.statut);
 	}
 
 	/**
@@ -51,36 +46,6 @@ public class ReservationAnnonceVM {
 	}
 
 	/**
-	 * @return the annonce
-	 */
-	public AnnonceVM getAnnonce() {
-		return annonce;
-	}
-
-	/**
-	 * @param annonce
-	 *            the annonce to set
-	 */
-	public void setAnnonce(AnnonceVM annonce) {
-		this.annonce = annonce;
-	}
-
-	/**
-	 * @return the collaborateur
-	 */
-	public CollaborateurVM getCollaborateur() {
-		return collaborateur;
-	}
-
-	/**
-	 * @param collaborateur
-	 *            the collaborateur to set
-	 */
-	public void setCollaborateur(CollaborateurVM collaborateur) {
-		this.collaborateur = collaborateur;
-	}
-
-	/**
 	 * @return the statut
 	 */
 	public Statut getStatut() {
@@ -93,6 +58,47 @@ public class ReservationAnnonceVM {
 	 */
 	public void setStatut(Statut statut) {
 		this.statut = statut;
+	}
+
+	/**
+	 * @return the collaborateurId
+	 */
+	public Long getCollaborateurId() {
+		return collaborateurId;
+	}
+
+	/**
+	 * @return the annonceId
+	 */
+	public Long getAnnonceId() {
+		return annonceId;
+	}
+
+	/**
+	 * @param annonceId
+	 *            the annonceId to set
+	 */
+	public void setAnnonceId(Long annonceId) {
+		this.annonceId = annonceId;
+	}
+
+	/**
+	 * @param collaborateurId
+	 *            the collaborateurId to set
+	 */
+	public void setCollaborateurId(Long collaborateurId) {
+		this.collaborateurId = collaborateurId;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ReservationAnnonceVM [id=" + id + ", annonceId=" + annonceId + ", collaborateurId=" + collaborateurId
+				+ ", statut=" + statut + "]";
 	}
 
 }

@@ -20,7 +20,7 @@ public class AnnonceVM {
 	private Integer nombrePlacesDispo;
 	private LocalDateTime dateDepart;
 	private Statut statut;
-	private CollaborateurVM collaborateur;
+	private Long collaborateurId;
 
 	public AnnonceVM() {
 	}
@@ -35,12 +35,7 @@ public class AnnonceVM {
 		this.nombrePlacesDispo = annonce.getNombrePlacesDispo();
 		this.dateDepart = annonce.getDateDepart();
 		this.statut = annonce.getStatut();
-		this.collaborateur = new CollaborateurVM(annonce.getCollaborateur());
-	}
-
-	public Annonce toAnnonce() {
-		return new Annonce(this.id, this.adresseDepart, this.adresseArrivee, this.immatriculation, this.marque,
-				this.modele, this.nombrePlacesDispo, this.dateDepart, this.statut, collaborateur.toCollaborateur());
+		this.collaborateurId = annonce.getCollaborateur().getId();
 	}
 
 	/**
@@ -181,16 +176,16 @@ public class AnnonceVM {
 	/**
 	 * @return the collaborateur
 	 */
-	public CollaborateurVM getCollaborateur() {
-		return collaborateur;
+	public Long getCollaborateurId() {
+		return collaborateurId;
 	}
 
 	/**
 	 * @param collaborateur
 	 *            the collaborateur to set
 	 */
-	public void setCollaborateur(CollaborateurVM collaborateur) {
-		this.collaborateur = collaborateur;
+	public void setCollaborateurId(Long collaborateurId) {
+		this.collaborateurId = collaborateurId;
 	}
 
 }

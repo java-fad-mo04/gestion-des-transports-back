@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 /**
  * Représente le concept de collaborateur
  * 
- * @author Diginamc
+ * @author Diginamic
  *
  */
 
@@ -121,5 +121,16 @@ public class Collaborateur {
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof Collaborateur && o != null && ((Collaborateur) o).getId().equals(this.id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Collaborateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", motDePasse="
+				+ motDePasse + ", numeroTel=" + numeroTel + "]";
 	}
 }

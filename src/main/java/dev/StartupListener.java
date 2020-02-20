@@ -156,6 +156,15 @@ public class StartupListener {
 			this.annonceRepo.save(a);
 		}
 
+		/*
+		 * List<ReservationVehicule> listeResv =
+		 * this.reserVehiRepo.getAllByVehiculeAndBetweenDates(v2,
+		 * LocalDateTime.parse("2019-12-17 00:00:00",
+		 * DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss")),
+		 * LocalDateTime.parse("2019-12-17 05:00:00",
+		 * DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss"))); for
+		 * (ReservationVehicule resv : listeResv) { System.err.println(resv); }
+		 */
 	}
 
 }

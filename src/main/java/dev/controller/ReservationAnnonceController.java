@@ -66,7 +66,7 @@ public class ReservationAnnonceController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "resa", params = "aid")
 	public ResponseEntity<List<ReservationAnnonceVM>> getAllFromAnnonce(Long aid) {
-		// On vérifie que l'annonce existe
+		// On vérifie si l'annonce existe
 		Optional<Annonce> annOpt = this.annRepo.findById(aid);
 		if (!annOpt.isPresent()) {
 			String messageErreur = "Annonce d'id " + aid + " introuvable..";
@@ -86,7 +86,7 @@ public class ReservationAnnonceController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "resa", params = "cid")
 	public ResponseEntity<List<ReservationAnnonceVM>> getAllFromCollaborateur(Long cid) {
-		// On vérifie que le collaborateur existe
+		// On vérifie si le collaborateur existe
 		Optional<Collaborateur> collabOpt = this.collRepo.findById(cid);
 		if (!collabOpt.isPresent()) {
 			String messageErreur = "Collaborateur d'id " + cid + " introuvable..";
@@ -105,30 +105,30 @@ public class ReservationAnnonceController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, path = "resa")
-	public ResponseEntity<String> creerModifierReservation(@RequestBody ReservationAnnonceRequestParam resaParam) {
-		// On vérifie que les paramètres sont bien spécifiés
-		if (resaParam == null || resaParam.getAnnonceId() == null || resaParam.getCollaborateurId() == null) {
-			String messageErreur = "Requête incomplète - " + resaParam;
+	public ResponseEntity<String> creerModifierReservation(@RequestBody ReservationAnnonceVM resaVM) {
+		// On vérifie si les paramètres sont bien spécifiés
+		if (resaVM == null || resaVM.getAnnonceId() == null || resaVM.getCollaborateurId() == null) {
+			String messageErreur = "Requête incomplète - " + resaVM;
 			LOG.error(messageErreur);
 			throw new BadRequestException(messageErreur);
 		}
 		// Si le statut n'a pas été défini, il est ACTIF par défaut
-		if (resaParam.getStatut() == null
-				|| (!resaParam.getStatut().equals(Statut.ACTIF) && !resaParam.getStatut().equals(Statut.ANNULE))) {
-			resaParam.setStatut(Statut.ACTIF);
+		if (resaVM.getStatut() == null
+				|| (!resaVM.getStatut().equals(Statut.ACTIF) && !resaVM.getStatut().equals(Statut.ANNULE))) {
+			resaVM.setStatut(Statut.ACTIF);
 		}
 		// On vérifie si l'annonce existe
-		Optional<Annonce> annOpt = this.annRepo.findById(resaParam.getAnnonceId());
+		Optional<Annonce> annOpt = this.annRepo.findById(resaVM.getAnnonceId());
 		if (!annOpt.isPresent()) {
-			String messageErreur = "Annonce d'id " + resaParam.getAnnonceId() + " introuvable..";
+			String messageErreur = "Annonce d'id " + resaVM.getAnnonceId() + " introuvable..";
 			LOG.error(messageErreur);
 			throw new ElementNotFoundException(messageErreur);
 		}
 
 		// On vérifie si le collaborateur existe
-		Optional<Collaborateur> collabOpt = this.collRepo.findById(resaParam.getCollaborateurId());
+		Optional<Collaborateur> collabOpt = this.collRepo.findById(resaVM.getCollaborateurId());
 		if (!collabOpt.isPresent()) {
-			String messageErreur = "Collaborateur d'id " + resaParam.getCollaborateurId() + " introuvable..";
+			String messageErreur = "Collaborateur d'id " + resaVM.getCollaborateurId() + " introuvable..";
 			LOG.error(messageErreur);
 			throw new ElementNotFoundException(messageErreur);
 		}
@@ -146,7 +146,7 @@ public class ReservationAnnonceController {
 		}
 
 		// Si le nombre de réservation dépasse le nombre de places disponibles
-		if (Statut.ACTIF.equals(resaParam.getStatut()) && this.resaRepo.findAllByAnnonceAndStatut(annonce, Statut.ACTIF)
+		if (Statut.ACTIF.equals(resaVM.getStatut()) && this.resaRepo.findAllByAnnonceAndStatut(annonce, Statut.ACTIF)
 				.stream().count() >= annonce.getNombrePlacesDispo()) {
 			String messageErreur = "Le nombre de réservations maximal a déjà été atteint pour cette annonce (id: "
 					+ annonce.getId() + ").";
@@ -161,64 +161,18 @@ public class ReservationAnnonceController {
 		if (resaOpt.isPresent()) {
 			resa = resaOpt.get();
 			// Dans le cas où aucune modification est nécessaire
-			if (resaParam.getStatut().equals(resa.getStatut())) {
+			if (resaVM.getStatut().equals(resa.getStatut())) {
 				String messageErreur = "La réservation existe déjà avec le statut défini: aucun changement à effectuer.";
 				LOG.error(messageErreur);
 				throw new ForbiddenOperationException(messageErreur);
 			}
-			resa.setStatut(resaParam.getStatut());
+			resa.setStatut(resaVM.getStatut());
 		} else {
 			// Si on est dans aucun des derniers cas, on cree la réservation
-			resa = new ReservationAnnonce(annonce, collaborateur, resaParam.getStatut());
+			resa = new ReservationAnnonce(annonce, collaborateur, resaVM.getStatut());
 		}
 		this.resaRepo.save(resa);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body("La réservation a été créée avec succès!");
-	}
-}
-
-/** Permet de recevoir une réservation en paramètre */
-class ReservationAnnonceRequestParam {
-	private Long annonceId;
-	private Long collaborateurId;
-	private Statut statut;
-
-	ReservationAnnonceRequestParam() {
-	}
-
-	public ReservationAnnonceRequestParam(Long annonceId, Long collaborateurId, Statut statut) {
-		this.annonceId = annonceId;
-		this.collaborateurId = collaborateurId;
-		this.statut = statut;
-	}
-
-	public Long getAnnonceId() {
-		return annonceId;
-	}
-
-	public void setAnnonceId(Long annonceId) {
-		this.annonceId = annonceId;
-	}
-
-	public Long getCollaborateurId() {
-		return collaborateurId;
-	}
-
-	public void setCollaborateurId(Long collaborateurId) {
-		this.collaborateurId = collaborateurId;
-	}
-
-	public Statut getStatut() {
-		return statut;
-	}
-
-	public void setStatut(Statut statut) {
-		this.statut = statut;
-	}
-
-	@Override
-	public String toString() {
-		return "ReservationAnnonceRequestParam [annonceId=" + annonceId + ", collaborateurId=" + collaborateurId
-				+ ", statut=" + statut + "]";
 	}
 
 }
