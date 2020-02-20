@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 /**
  * Représente le concept d'annonce
@@ -29,31 +30,40 @@ public class Annonce {
 	private Long id;
 	/** Identifiant de l'annonce */
 
+	@NotNull
 	private String adresseDepart;
 	/** Adresse de départ */
 
+	@NotNull
 	private String adresseArrivee;
 	/** Adresse d'arrivée */
 
+	@NotNull
 	private String immatriculation;
 	/** Immatriculation du véhicule utilisé */
 
+	@NotNull
 	private String marque;
 	/** Marque du véhicule utilisé */
 
+	@NotNull
 	private String modele;
 	/** Modèle du véhicule utilisé */
 
+	@NotNull
 	private Integer nombrePlacesDispo;
 	/** Nombre de places disponibles dans le véhicule utilisé */
 
+	@NotNull
 	private LocalDateTime dateDepart;
 	/** Date et heure de départ */
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Statut statut;
 	/** Statut de l'annonce ACTIF, "ANNULE */
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "collaborateur_id")
 	private Collaborateur collaborateur;

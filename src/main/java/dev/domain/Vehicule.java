@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  * Représente le concept de véhicule
@@ -21,23 +22,29 @@ public class Vehicule {
 	private Long id;
 	/** Identifiant du véhicule */
 
+	@NotNull
 	private String marque;
 	/** Marque du véhicule */
 
+	@NotNull
 	private String modele;
 	/** Modèle du véhicule */
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private CategorieVehicule categorie;
 	/** Catégorie du véhicule */
 
+	@NotNull
 	private String urlPhoto;
 	/** Adresse Url de la photo */
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private StatutVehicule statut;
 	/** Statut du véhicule: EN_SERVICE, EN_REPARATION, HORS_SERVICE */
 
+	@NotNull
 	private Integer nombrePlaces;
 
 	/** Nombre de places disponibles dans le véhicule */

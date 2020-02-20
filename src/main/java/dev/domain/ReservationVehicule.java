@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * Représente le concept de réservation d'un véhicule
@@ -23,22 +24,27 @@ public class ReservationVehicule {
 	private Long id;
 	/** Identifiant d'une réservation de véhicule */
 
+	@NotNull
 	private LocalDateTime dateDebut;
 	/** Date de début de réservation */
 
+	@NotNull
 	private LocalDateTime dateFin;
 	/** Date de fin de réservation */
 
+	@NotNull
 	private boolean avecChauffeur;
 	/**
 	 * Désigne s'il s'agit d'une réservation d'un véhicule avec chauffeur ou non
 	 */
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "collaborateur_id")
 	private Collaborateur collaborateur;
 	/** Collaborateur ayant effectué la réservation */
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "vehicule_id")
 	private Vehicule vehicule;

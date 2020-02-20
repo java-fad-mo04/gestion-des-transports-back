@@ -3,6 +3,7 @@ package dev.domain;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 /**
  * Représente le concept de chauffeur
@@ -13,9 +14,11 @@ import javax.persistence.Entity;
 @Entity
 public class Chauffeur extends Collaborateur {
 
+	@NotNull
 	private String matricule;
 	/** Matricule du chauffeur */
 
+	@NotNull
 	private String numeroPermis;
 
 	/** Numéro de permis de conduire du chauffeur */
@@ -36,6 +39,12 @@ public class Chauffeur extends Collaborateur {
 		super(id, nom, prenom, email, motDePasse, numeroTel, roles);
 		this.matricule = matricule;
 		this.numeroPermis = numeroPermis;
+	}
+
+	public Chauffeur(Collaborateur collaborateur, String matricule, String numeroPermis) {
+		this(collaborateur.getId(), collaborateur.getNom(), collaborateur.getPrenom(), collaborateur.getEmail(),
+				collaborateur.getMotDePasse(), collaborateur.getNumeroTel(), collaborateur.getRoles(), matricule,
+				numeroPermis);
 	}
 
 	/**
@@ -75,6 +84,8 @@ public class Chauffeur extends Collaborateur {
 	 */
 	@Override
 	public String toString() {
-		return "Chauffeur [matricule=" + matricule + ", numeroPermis=" + numeroPermis + "]";
+		return "Chauffeur [id=" + this.getId() + ", nom=" + this.getNom() + ", prenom=" + this.getPrenom() + ", email="
+				+ this.getEmail() + ", motDePasse=" + this.getMotDePasse() + ", numeroTel=" + this.getNumeroTel()
+				+ ", matricule=" + matricule + ", numeroPermis=" + numeroPermis + "]";
 	}
 }

@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Représente le concept d'une réservation en covoiturage
@@ -25,16 +26,19 @@ public class ReservationAnnonce {
 	private Long id;
 	/** Identifiant d'une réservation de covoiturage */
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "annonce_id")
 	private Annonce annonce;
 	/** Annonce de la réservation */
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "collaborateur_id")
 	private Collaborateur collaborateur;
 	/** Passager du covoiturage */
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Statut statut;
 

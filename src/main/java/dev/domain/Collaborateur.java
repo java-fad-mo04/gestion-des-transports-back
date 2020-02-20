@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 /**
  * Représente le concept de collaborateur
@@ -27,15 +28,19 @@ public class Collaborateur {
 	private Long id;
 	/** Identifiant d'un collaborateur */
 
+	@NotNull
 	private String nom;
 	/** Nom d'un collaborateur */
 
+	@NotNull
 	private String prenom;
 	/** Prénom d'une collaborateur */
 
+	@NotNull
 	private String email;
 	/** Adresse email d'un collaborateur */
 
+	@NotNull
 	private String motDePasse;
 	/** Mot de passe d'un collaborateur */
 

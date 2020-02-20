@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class RoleCollaborateur {
@@ -16,10 +17,12 @@ public class RoleCollaborateur {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "collaborateur_id")
 	private Collaborateur collaborateur;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
