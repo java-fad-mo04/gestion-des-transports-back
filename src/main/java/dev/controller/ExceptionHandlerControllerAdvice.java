@@ -11,6 +11,9 @@ import dev.exception.BadRequestException;
 import dev.exception.ElementNotFoundException;
 import dev.exception.ForbiddenOperationException;
 
+/*
+ * Permet de gérer les exceptions retournés par les controleurs 
+ */
 @RestControllerAdvice
 public class ExceptionHandlerControllerAdvice {
 

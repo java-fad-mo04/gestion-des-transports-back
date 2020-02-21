@@ -3,6 +3,7 @@ package dev.controller.vm;
 import java.time.LocalDateTime;
 
 import dev.domain.ReservationVehicule;
+import dev.domain.Vehicule;
 
 /**
  * Structure modèlisant une réservation de véhicule servant à communiquer avec
@@ -15,21 +16,30 @@ public class ReservationVehiculeVM {
 	private LocalDateTime dateFin;
 	private boolean avecChauffeur;
 	private Long collaborateurId;
+	private CollaborateurVM collaborateurDetails;
 	private Long vehiculeId;
+	private Vehicule vehiculeDetails;
 	private Long chauffeurId;
+	private ChauffeurVM chauffeurDetails;
 
 	public ReservationVehiculeVM() {
 	}
 
 	public ReservationVehiculeVM(ReservationVehicule resVehicule) {
-		this.id = resVehicule.getId();
-		this.dateDebut = resVehicule.getDateDebut();
-		this.dateFin = resVehicule.getDateFin();
-		this.avecChauffeur = resVehicule.isAvecChauffeur();
-		this.collaborateurId = resVehicule.getCollaborateur().getId();
-		this.vehiculeId = resVehicule.getVehicule().getId();
-		if (resVehicule.getChauffeur() != null)
-			this.chauffeurId = resVehicule.getChauffeur().getId();
+		if (resVehicule != null) {
+			this.id = resVehicule.getId();
+			this.dateDebut = resVehicule.getDateDebut();
+			this.dateFin = resVehicule.getDateFin();
+			this.avecChauffeur = resVehicule.isAvecChauffeur();
+			this.collaborateurId = resVehicule.getCollaborateur().getId();
+			this.collaborateurDetails = new CollaborateurVM(resVehicule.getCollaborateur());
+			this.vehiculeId = resVehicule.getVehicule().getId();
+			this.vehiculeDetails = resVehicule.getVehicule();
+			if (resVehicule.getChauffeur() != null) {
+				this.chauffeurId = resVehicule.getChauffeur().getId();
+				this.chauffeurDetails = new ChauffeurVM(resVehicule.getChauffeur());
+			}
+		}
 	}
 
 	public Long getId() {
@@ -86,6 +96,51 @@ public class ReservationVehiculeVM {
 
 	public void setChauffeurId(Long chauffeurId) {
 		this.chauffeurId = chauffeurId;
+	}
+
+	/**
+	 * @return the collaborateurDetails
+	 */
+	public CollaborateurVM getCollaborateurDetails() {
+		return collaborateurDetails;
+	}
+
+	/**
+	 * @param collaborateurDetails
+	 *            the collaborateurDetails to set
+	 */
+	public void setCollaborateurDetails(CollaborateurVM collaborateurDetails) {
+		this.collaborateurDetails = collaborateurDetails;
+	}
+
+	/**
+	 * @return the vehiculeDetails
+	 */
+	public Vehicule getVehiculeDetails() {
+		return vehiculeDetails;
+	}
+
+	/**
+	 * @param vehiculeDetails
+	 *            the vehiculeDetails to set
+	 */
+	public void setVehiculeDetails(Vehicule vehiculeDetails) {
+		this.vehiculeDetails = vehiculeDetails;
+	}
+
+	/**
+	 * @return the chauffeurDetails
+	 */
+	public ChauffeurVM getChauffeurDetails() {
+		return chauffeurDetails;
+	}
+
+	/**
+	 * @param chauffeurDetails
+	 *            the chauffeurDetails to set
+	 */
+	public void setChauffeurDetails(ChauffeurVM chauffeurDetails) {
+		this.chauffeurDetails = chauffeurDetails;
 	}
 
 }

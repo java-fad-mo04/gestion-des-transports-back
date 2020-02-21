@@ -21,21 +21,25 @@ public class AnnonceVM {
 	private LocalDateTime dateDepart;
 	private Statut statut;
 	private Long collaborateurId;
+	private CollaborateurVM collaborateurDetails;
 
 	public AnnonceVM() {
 	}
 
 	public AnnonceVM(Annonce annonce) {
-		this.id = annonce.getId();
-		this.adresseDepart = annonce.getAdresseDepart();
-		this.adresseArrivee = annonce.getAdresseArrivee();
-		this.immatriculation = annonce.getImmatriculation();
-		this.marque = annonce.getMarque();
-		this.modele = annonce.getModele();
-		this.nombrePlacesDispo = annonce.getNombrePlacesDispo();
-		this.dateDepart = annonce.getDateDepart();
-		this.statut = annonce.getStatut();
-		this.collaborateurId = annonce.getCollaborateur().getId();
+		if (annonce != null) {
+			this.id = annonce.getId();
+			this.adresseDepart = annonce.getAdresseDepart();
+			this.adresseArrivee = annonce.getAdresseArrivee();
+			this.immatriculation = annonce.getImmatriculation();
+			this.marque = annonce.getMarque();
+			this.modele = annonce.getModele();
+			this.nombrePlacesDispo = annonce.getNombrePlacesDispo();
+			this.dateDepart = annonce.getDateDepart();
+			this.statut = annonce.getStatut();
+			this.collaborateurId = annonce.getCollaborateur().getId();
+			this.collaborateurDetails = new CollaborateurVM(annonce.getCollaborateur());
+		}
 	}
 
 	/**
@@ -186,6 +190,21 @@ public class AnnonceVM {
 	 */
 	public void setCollaborateurId(Long collaborateurId) {
 		this.collaborateurId = collaborateurId;
+	}
+
+	/**
+	 * @return the collaborateurDetails
+	 */
+	public CollaborateurVM getCollaborateurDetails() {
+		return collaborateurDetails;
+	}
+
+	/**
+	 * @param collaborateurDetails
+	 *            the collaborateurDetails to set
+	 */
+	public void setCollaborateurDetails(CollaborateurVM collaborateurDetails) {
+		this.collaborateurDetails = collaborateurDetails;
 	}
 
 }

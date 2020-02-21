@@ -23,27 +23,29 @@ public class CollaborateurVM {
 	public CollaborateurVM() {
 	}
 
-	public CollaborateurVM(Collaborateur col) {
-		this.id = col.getId();
-		this.email = col.getEmail();
-		this.nom = col.getNom();
-		this.prenom = col.getPrenom();
-		this.numeroTel = col.getNumeroTel();
-		this.roles = col.getRoles().stream().map(roleCollaborateur -> roleCollaborateur.getRole())
-				.collect(Collectors.toList());
+	public CollaborateurVM(Collaborateur collaborateur) {
+		if (collaborateur != null) {
+			this.id = collaborateur.getId();
+			this.email = collaborateur.getEmail();
+			this.nom = collaborateur.getNom();
+			this.prenom = collaborateur.getPrenom();
+			this.numeroTel = collaborateur.getNumeroTel();
+			this.roles = collaborateur.getRoles().stream().map(roleCollaborateur -> roleCollaborateur.getRole())
+					.collect(Collectors.toList());
+		}
 	}
 
 	public Collaborateur toCollaborateur() {
-		Collaborateur col = new Collaborateur();
-		col.setId(this.id);
-		col.setEmail(this.email);
-		col.setNom(this.nom);
-		col.setPrenom(this.prenom);
-		col.setNumeroTel(this.numeroTel);
-		List<RoleCollaborateur> rolesCollaborateur = this.roles.stream().map(role -> new RoleCollaborateur(col, role))
-				.collect(Collectors.toList());
-		col.setRoles(rolesCollaborateur);
-		return col;
+		Collaborateur collaborateur = new Collaborateur();
+		collaborateur.setId(this.id);
+		collaborateur.setEmail(this.email);
+		collaborateur.setNom(this.nom);
+		collaborateur.setPrenom(this.prenom);
+		collaborateur.setNumeroTel(this.numeroTel);
+		List<RoleCollaborateur> rolesCollaborateur = this.roles.stream()
+				.map(role -> new RoleCollaborateur(collaborateur, role)).collect(Collectors.toList());
+		collaborateur.setRoles(rolesCollaborateur);
+		return collaborateur;
 	}
 
 	public Long getId() {

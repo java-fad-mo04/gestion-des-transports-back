@@ -44,7 +44,7 @@ public class AnnonceController {
 	}
 
 	/** Retourne une annonce à partir de son id */
-	@RequestMapping(method = RequestMethod.GET, path = "annonce", params = "aid")
+	@RequestMapping(method = RequestMethod.GET, path = "annonce", params = "id")
 	public AnnonceVM get(Long aid) {
 		Optional<Annonce> annOpt = this.annRepo.findById(aid);
 		if (!annOpt.isPresent()) {
