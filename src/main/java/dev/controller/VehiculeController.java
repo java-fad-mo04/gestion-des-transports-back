@@ -24,7 +24,7 @@ public class VehiculeController {
 		this.vRepo = vRepo;
 	}
 
-	/** Retourne la liste ds véhicules */
+	/** Retourne la liste des véhicules */
 	@RequestMapping(method = RequestMethod.GET, path = "vehicules")
 	public List<Vehicule> getVehicules() {
 		List<Vehicule> listeVehicules = this.vRepo.findAll();

@@ -21,8 +21,10 @@ public class ChauffeurVM extends CollaborateurVM {
 
 	public ChauffeurVM(Chauffeur chauffeur) {
 		super(chauffeur);
-		this.matricule = chauffeur.getMatricule();
-		this.numeroPermis = chauffeur.getNumeroPermis();
+		if (chauffeur != null) {
+			this.matricule = chauffeur.getMatricule();
+			this.numeroPermis = chauffeur.getNumeroPermis();
+		}
 	}
 
 	public Chauffeur toChauffeur() {
