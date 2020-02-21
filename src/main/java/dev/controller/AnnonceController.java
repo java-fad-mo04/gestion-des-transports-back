@@ -45,14 +45,14 @@ public class AnnonceController {
 
 	/** Retourne une annonce à partir de son id */
 	@RequestMapping(method = RequestMethod.GET, path = "annonce", params = "aid")
-	public Annonce get(Long aid) {
+	public AnnonceVM get(Long aid) {
 		Optional<Annonce> annOpt = this.annRepo.findById(aid);
 		if (!annOpt.isPresent()) {
 			String messageErreur = "Annonce d'id " + aid + " introuvable..";
 			LOG.error(messageErreur);
 			throw new ElementNotFoundException(messageErreur);
 		}
-		return annOpt.get();
+		return new AnnonceVM(annOpt.get());
 	}
 
 	/** Retourne la liste des annonces */
