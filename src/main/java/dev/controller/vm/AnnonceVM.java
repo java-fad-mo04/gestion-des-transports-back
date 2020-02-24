@@ -22,6 +22,7 @@ public class AnnonceVM {
 	private Statut statut;
 	private Long collaborateurId;
 	private CollaborateurVM collaborateurDetails;
+	private Long nombreReservationsActives;
 
 	public AnnonceVM() {
 	}
@@ -39,6 +40,8 @@ public class AnnonceVM {
 			this.statut = annonce.getStatut();
 			this.collaborateurId = annonce.getCollaborateur().getId();
 			this.collaborateurDetails = new CollaborateurVM(annonce.getCollaborateur());
+			this.nombreReservationsActives = annonce.getReservations().stream()
+					.filter(resa -> resa.getStatut().equals(Statut.ACTIF)).count();
 		}
 	}
 
@@ -205,6 +208,21 @@ public class AnnonceVM {
 	 */
 	public void setCollaborateurDetails(CollaborateurVM collaborateurDetails) {
 		this.collaborateurDetails = collaborateurDetails;
+	}
+
+	/**
+	 * @return the nombreReservationsActives
+	 */
+	public Long getNombreReservationsActives() {
+		return nombreReservationsActives;
+	}
+
+	/**
+	 * @param nombreReservationsActives
+	 *            the nombreReservationsActives to set
+	 */
+	public void setNombreReservationsActives(Long nombreReservationsActives) {
+		this.nombreReservationsActives = nombreReservationsActives;
 	}
 
 }
