@@ -84,11 +84,48 @@ public class StartupListener {
 		col2.setRoles(Arrays.asList(new RoleCollaborateur(col2, Role.ROLE_UTILISATEUR)));
 		this.collaborateurRepo.save(col2);
 
-		Chauffeur col3 = new Chauffeur(null, "JEAN", "Dimitri", "d.jean@gmail.com", passwordEncoder.encode("Soleil123"),
-				"0748859586", null, "DE54869233", "154884818484");
-		col3.setRoles(Arrays.asList(new RoleCollaborateur(col3, Role.ROLE_UTILISATEUR)));
-		this.chauffeurRepo.save(col3);
 
+		/*** Debut Creer les ,chauffeurs ***/
+		Chauffeur chauffeur1 = new Chauffeur( null, "JEAN", "Paul 1", "chauffeur1@gmail.com", passwordEncoder.encode("Soleil123"),
+				                              "0706050401", null, "MATRI-001", "Permis B");
+		chauffeur1.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur1, Role.ROLE_UTILISATEUR)));
+		this.chauffeurRepo.save(chauffeur1);
+		
+		Chauffeur chauffeur2 = new Chauffeur( null, "JEAN", "Paul 2", "chauffeur2@gmail.com", passwordEncoder.encode("Soleil123"),
+                "0706050402", null, "MATRI-002", "Permis B");
+				chauffeur2.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur2, Role.ROLE_UTILISATEUR)));
+				this.chauffeurRepo.save(chauffeur2);
+
+		Chauffeur chauffeur3 = new Chauffeur( null, "JEAN", "Paul 3", "chauffeur3@gmail.com", passwordEncoder.encode("Soleil123"),
+        "0706050403", null, "MATRI-003", "Permis B");
+		chauffeur3.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur3, Role.ROLE_UTILISATEUR)));
+		this.chauffeurRepo.save(chauffeur3);
+
+		Chauffeur chauffeur4 = new Chauffeur( null, "Loeb", "Sébastien", "chauffeur4@gmail.com", passwordEncoder.encode("Soleil123"),
+        "0706050404", null, "MATRI-004", "Permis B");
+		chauffeur4.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur4, Role.ROLE_UTILISATEUR)));
+		this.chauffeurRepo.save(chauffeur4);
+
+		Chauffeur chauffeur5 = new Chauffeur( null, "Ogier", "Sébastien", "chauffeur5@gmail.com", passwordEncoder.encode("Soleil123"),
+        "0706050405", null, "MATRI-005", "Permis B");
+		chauffeur5.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur5, Role.ROLE_UTILISATEUR)));
+		this.chauffeurRepo.save(chauffeur5);
+
+		Chauffeur chauffeur6 = new Chauffeur( null, "JEAN", "Sébastien", "chauffeur6@gmail.com", passwordEncoder.encode("Soleil123"),
+        "0706050406", null, "MATRI-006", "Permis B");
+		chauffeur6.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur6, Role.ROLE_UTILISATEUR)));
+		this.chauffeurRepo.save(chauffeur6);
+
+		Chauffeur chauffeur7 = new Chauffeur( null, "Bond", "James", "chauffeur7@gmail.com", passwordEncoder.encode("Soleil123"),
+        "0706050407", null, "MATRI-007", "Permis B");
+		chauffeur7.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur7, Role.ROLE_UTILISATEUR)));
+		this.chauffeurRepo.save(chauffeur7);
+
+		
+		/*** Fin   Creer les chauffeurs ***/
+		
+		
+		
 		Collaborateur col4 = new Collaborateur(null, "KAFE", "Josh", "j.kafe@orange.fr",
 				passwordEncoder.encode("Soleil123"), "0798521258", null);
 		col4.setRoles(Arrays.asList(new RoleCollaborateur(col4, Role.ROLE_UTILISATEUR)));
@@ -130,7 +167,7 @@ public class StartupListener {
 		ReservationVehicule rv3 = new ReservationVehicule(null,
 				LocalDateTime.parse("10/05/2019 07:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
 				LocalDateTime.parse("10/05/2019 14:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), true, col4,
-				v5, col3);
+				v5, chauffeur1);
 		for (ReservationVehicule rv : Arrays.asList(rv1, rv2, rv3)) {
 			this.reserVehiRepo.save(rv);
 		}

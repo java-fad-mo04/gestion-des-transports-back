@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import dev.repository.ChauffeurRepo;
 import dev.repository.CollaborateurRepo;
 
 @RestController
+@CrossOrigin
 public class ChauffeurController {
 
 	private ChauffeurRepo chffRepo;
@@ -37,10 +39,14 @@ public class ChauffeurController {
 	/** Retourne la liste des chauffeurs */
 	@RequestMapping(method = RequestMethod.GET, path = "chauffeurs")
 	public List<ChauffeurVM> getChauffeur() {
+		LOG.info( "*** Recuperer les chauffeurs ***");
 		List<Chauffeur> listeChauffeurs = this.chffRepo.findAll();
+		LOG.info( listeChauffeurs.get(0).toString());
 		return listeChauffeurs.stream().map(col -> new ChauffeurVM(col)).collect(Collectors.toList());
 	}
 
+	
+	
 	/**
 	 * Renvoie un chauffeur spécifique à partir de son id
 	 * 
@@ -57,6 +63,7 @@ public class ChauffeurController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new ChauffeurVM(chffOpt.get()));
 	}
+
 
 	/**
 	 * Permet de créer ou de modifier une réservation pour une annonce
