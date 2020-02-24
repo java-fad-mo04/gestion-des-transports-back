@@ -66,7 +66,7 @@ public class ChauffeurController {
 	 * @param matricule
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "chauffeursFiltres")
+	@RequestMapping(method = RequestMethod.GET, path = "chauffeursFiltres") 
 	public List<ChauffeurVM> getChauffeurFiltreParMatriculeNom( @RequestParam("matricule") 	String matricule, 
 			                                                    @RequestParam("nom") 		String nom,
 			                                                    @RequestParam("prenom") 	String prenom) {
