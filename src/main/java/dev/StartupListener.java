@@ -86,17 +86,17 @@ public class StartupListener {
 
 
 		/*** Debut Creer les ,chauffeurs ***/
-		Chauffeur chauffeur1 = new Chauffeur( null, "JEAN", "Paul 1", "chauffeur1@gmail.com", passwordEncoder.encode("Soleil123"),
+		Chauffeur chauffeur1 = new Chauffeur( null, "Dupont", "Paul 1", "chauffeur1@gmail.com", passwordEncoder.encode("Soleil123"),
 				                              "0706050401", null, "MATRI-001", "Permis B");
 		chauffeur1.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur1, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(chauffeur1);
 		
-		Chauffeur chauffeur2 = new Chauffeur( null, "JEAN", "Paul 2", "chauffeur2@gmail.com", passwordEncoder.encode("Soleil123"),
+		Chauffeur chauffeur2 = new Chauffeur( null, "Dupont", "Paul 2", "chauffeur2@gmail.com", passwordEncoder.encode("Soleil123"),
                 "0706050402", null, "MATRI-002", "Permis B");
 				chauffeur2.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur2, Role.ROLE_UTILISATEUR)));
 				this.chauffeurRepo.save(chauffeur2);
 
-		Chauffeur chauffeur3 = new Chauffeur( null, "JEAN", "Paul 3", "chauffeur3@gmail.com", passwordEncoder.encode("Soleil123"),
+		Chauffeur chauffeur3 = new Chauffeur( null, "Dupont", "Paul 3", "chauffeur3@gmail.com", passwordEncoder.encode("Soleil123"),
         "0706050403", null, "MATRI-003", "Permis B");
 		chauffeur3.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur3, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(chauffeur3);

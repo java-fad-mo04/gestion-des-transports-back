@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.controller.vm.ChauffeurVM;
@@ -37,15 +38,42 @@ public class ChauffeurController {
 	}
 
 	/** Retourne la liste des chauffeurs */
-	@RequestMapping(method = RequestMethod.GET, path = "chauffeurs")
-	public List<ChauffeurVM> getChauffeur() {
+	@RequestMapping(method = RequestMethod.GET, path = "chauffeurs1")
+	public List<ChauffeurVM> getChauffeurs() {
 		LOG.info( "*** Recuperer les chauffeurs ***");
 		List<Chauffeur> listeChauffeurs = this.chffRepo.findAll();
 		LOG.info( listeChauffeurs.get(0).toString());
 		return listeChauffeurs.stream().map(col -> new ChauffeurVM(col)).collect(Collectors.toList());
 	}
 
+	/**
+	 * Renvoie des chauffeurs commencant par matricule passé en paramètre
+	 * 
+	 * @param matricule
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "chauffeurs2", params = "matricule")
+	public List<ChauffeurVM> getChauffeursFiltreParMatricule(String matricule) {
+		LOG.info( "*** Filtrer les chauffeurs par matricule : " + matricule);
+		List<Chauffeur> listeChauffeurs = this.chffRepo.findByMatriculeStartingWith( matricule);
+		return listeChauffeurs.stream().map(chauffeur -> new ChauffeurVM( chauffeur)).collect(Collectors.toList());
+	}
 	
+
+	/**
+	 * Renvoie des chauffeurs commencant par matricule, nom, prenom passés en paramètre
+	 * 
+	 * @param matricule
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "chauffeursFiltres")
+	public List<ChauffeurVM> getChauffeurFiltreParMatriculeNom( @RequestParam("matricule") 	String matricule, 
+			                                                    @RequestParam("nom") 		String nom,
+			                                                    @RequestParam("prenom") 	String prenom) {
+		LOG.info( "*** Filtrer les chauffeurs par matricule/nom/prenom : " + matricule + '/' + nom + '/' + prenom);
+		List<Chauffeur> listeChauffeurs = this.chffRepo.findByMatriculeStartingWithAndNomStartingWithAndPrenomStartingWith( matricule, nom, prenom);
+		return listeChauffeurs.stream().map(chauffeur -> new ChauffeurVM( chauffeur)).collect(Collectors.toList());
+	}
 	
 	/**
 	 * Renvoie un chauffeur spécifique à partir de son id
