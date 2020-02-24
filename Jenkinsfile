@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PROD_GIT = "git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_24f6f6e2-ba85-43d5-8166-24bc7eabcb95.git"
+        PROD_GIT = "git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_fb679905-5780-4f0e-8ae9-75881e6de593.git"
         GIT_CREDENTIAL_ID = '498f56ad-08cc-4ce4-a8dc-d21027509ca5'
     }
     stages {
@@ -10,17 +10,7 @@ pipeline {
                 sh './mvnw clean package'
             }
         }
-        stage('quality') {
-            when {
-                branch 'master'
-            }
-            steps {
-                withSonarQubeEnv('Sonar-Nantes') {
-                  sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
-                }
-            }
-        }
-         stage('deploy') {
+        stage('deploy') {
              when {
                 branch 'master'
             }
