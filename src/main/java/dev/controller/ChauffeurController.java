@@ -96,7 +96,8 @@ public class ChauffeurController {
 			throw new ElementNotFoundException(messageErreur);
 		}
 
-		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), chffVM.getMatricule(), chffVM.getNumeroPermis());
+		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), chffVM.getMatricule(), chffVM.getNumeroPermis(),
+				chffVM.getPhotoUrl());
 		this.chffRepo.save(chauffeur);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le chauffeur a été créé avec succès!");
 	}
