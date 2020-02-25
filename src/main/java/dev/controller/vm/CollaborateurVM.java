@@ -18,6 +18,7 @@ public class CollaborateurVM {
 	private String nom;
 	private String prenom;
 	private String numeroTel;
+	private String urlPhoto;
 	private List<Role> roles = new ArrayList<>();
 
 	public CollaborateurVM() {
@@ -29,6 +30,7 @@ public class CollaborateurVM {
 		this.nom = col.getNom();
 		this.prenom = col.getPrenom();
 		this.numeroTel = col.getNumeroTel();
+		this.urlPhoto = col.getUrlPhoto();
 		this.roles = col.getRoles().stream().map(roleCollaborateur -> roleCollaborateur.getRole())
 				.collect(Collectors.toList());
 	}
@@ -93,4 +95,19 @@ public class CollaborateurVM {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
+	/** Getter
+	 * @return the urlPhoto
+	 */
+	public String getUrlPhoto() {
+		return urlPhoto;
+	}
+
+	/** Setter
+	 * @param urlPhoto the urlPhoto to set
+	 */
+	public void setUrlPhoto(String urlPhoto) {
+		this.urlPhoto = urlPhoto;
+	}
+
 }

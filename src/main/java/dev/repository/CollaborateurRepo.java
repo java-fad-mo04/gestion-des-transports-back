@@ -10,5 +10,7 @@ public interface CollaborateurRepo extends JpaRepository<Collaborateur, Long> {
 
     Optional<Collaborateur> findByEmail(String email);
 
-//???	Optional<Collaborateur> findByMatricule(String matricule);
+	Optional<Collaborateur> findByMatricule(String matricule);
+
+
 }

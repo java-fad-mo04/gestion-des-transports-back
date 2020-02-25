@@ -1,6 +1,7 @@
 package dev.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,6 +15,10 @@ public interface ChauffeurRepo extends JpaRepository<Chauffeur, Long> {
 
 	List<Chauffeur> findByMatriculeStartingWithAndNomStartingWithAndPrenomStartingWith(String matricule, String nom,
 			String prenom);
+
+
+
+	Optional<Chauffeur> findByMatricule(String matricule);
 
 
 }

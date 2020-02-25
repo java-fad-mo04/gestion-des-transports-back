@@ -38,6 +38,7 @@ import dev.repository.VersionRepo;
 public class StartupListener {
 
 	private static final Logger LOG = LoggerFactory.getLogger(dev.StartupListener.class);
+	private static final String PHOTO_URL = "https://www.w3schools.com/bootstrap/img_avatar2.png";
 
 	private String appVersion;
 	private VersionRepo versionRepo;
@@ -87,37 +88,37 @@ public class StartupListener {
 
 		/*** Debut Creer les ,chauffeurs ***/
 		Chauffeur chauffeur1 = new Chauffeur( null, "Dupont", "Paul 1", "chauffeur1@gmail.com", passwordEncoder.encode("Soleil123"),
-				                              "0706050401", null, "MATRI-001", "Permis B");
+				                              "0706050401", PHOTO_URL, null, "MATRI-001", "Permis B");
 		chauffeur1.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur1, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(chauffeur1);
 		
 		Chauffeur chauffeur2 = new Chauffeur( null, "Dupont", "Paul 2", "chauffeur2@gmail.com", passwordEncoder.encode("Soleil123"),
-                "0706050402", null, "MATRI-002", "Permis B");
+                "0706050402", PHOTO_URL, null, "MATRI-002", "Permis B");
 				chauffeur2.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur2, Role.ROLE_UTILISATEUR)));
 				this.chauffeurRepo.save(chauffeur2);
 
 		Chauffeur chauffeur3 = new Chauffeur( null, "Dupont", "Paul 3", "chauffeur3@gmail.com", passwordEncoder.encode("Soleil123"),
-        "0706050403", null, "MATRI-003", "Permis B");
+        "0706050403", PHOTO_URL, null, "MATRI-003", "Permis B");
 		chauffeur3.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur3, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(chauffeur3);
 
 		Chauffeur chauffeur4 = new Chauffeur( null, "Loeb", "Sébastien", "chauffeur4@gmail.com", passwordEncoder.encode("Soleil123"),
-        "0706050404", null, "MATRI-004", "Permis B");
+        "0706050404", PHOTO_URL, null, "MATRI-004", "Permis B");
 		chauffeur4.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur4, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(chauffeur4);
 
 		Chauffeur chauffeur5 = new Chauffeur( null, "Ogier", "Sébastien", "chauffeur5@gmail.com", passwordEncoder.encode("Soleil123"),
-        "0706050405", null, "MATRI-005", "Permis B");
+        "0706050405", PHOTO_URL, null, "MATRI-005", "Permis B");
 		chauffeur5.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur5, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(chauffeur5);
 
 		Chauffeur chauffeur6 = new Chauffeur( null, "JEAN", "Sébastien", "chauffeur6@gmail.com", passwordEncoder.encode("Soleil123"),
-        "0706050406", null, "MATRI-006", "Permis B");
+        "0706050406", PHOTO_URL, null, "MATRI-006", "Permis B");
 		chauffeur6.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur6, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(chauffeur6);
 
 		Chauffeur chauffeur7 = new Chauffeur( null, "Bond", "James", "chauffeur7@gmail.com", passwordEncoder.encode("Soleil123"),
-        "0706050407", null, "MATRI-007", "Permis B");
+        "0706050407", PHOTO_URL, null, "MATRI-007", "Permis B");
 		chauffeur7.setRoles(Arrays.asList(new RoleCollaborateur(chauffeur7, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(chauffeur7);
 
@@ -126,15 +127,15 @@ public class StartupListener {
 		
 		
 		
-		Collaborateur col4 = new Collaborateur(null, "KAFE", "Josh", "j.kafe@orange.fr",
-				passwordEncoder.encode("Soleil123"), "0798521258", null);
-		col4.setRoles(Arrays.asList(new RoleCollaborateur(col4, Role.ROLE_UTILISATEUR)));
-		this.collaborateurRepo.save(col4);
+		Collaborateur col8 = new Collaborateur(null, "KAFE", "Josh", "j.kafe@orange.fr",
+				passwordEncoder.encode("Soleil123"), "0798521258", "MATRI-008", PHOTO_URL, null);
+		col8.setRoles(Arrays.asList(new RoleCollaborateur(col8, Role.ROLE_UTILISATEUR)));
+		this.collaborateurRepo.save(col8);
 
-		Collaborateur col5 = new Collaborateur(null, "LAROCHE", "Mattis", "m.laroche@gmail.com",
-				passwordEncoder.encode("Soleil123"), "0658124125", null);
-		col5.setRoles(Arrays.asList(new RoleCollaborateur(col5, Role.ROLE_UTILISATEUR)));
-		this.collaborateurRepo.save(col5);
+		Collaborateur col9 = new Collaborateur(null, "LAROCHE", "Mattis", "m.laroche@gmail.com",
+				passwordEncoder.encode("Soleil123"), "0658124125", "MATRI-009", PHOTO_URL, null);
+		col9.setRoles(Arrays.asList(new RoleCollaborateur(col9, Role.ROLE_UTILISATEUR)));
+		this.collaborateurRepo.save(col9);
 
 		/** Exemples de véhicules */
 		Vehicule v1 = new Vehicule(null, "Citroën", "Xantia", CategorieVehicule.BERLINES_M,
@@ -158,15 +159,15 @@ public class StartupListener {
 		/** Exemple de réservation de véhicule de fonction */
 		ReservationVehicule rv1 = new ReservationVehicule(null,
 				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
-				LocalDateTime.parse("17/12/2019 21:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), false, col5,
+				LocalDateTime.parse("17/12/2019 21:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), false, col9,
 				v2, null);
 		ReservationVehicule rv2 = new ReservationVehicule(null,
 				LocalDateTime.parse("01/11/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
-				LocalDateTime.parse("02/11/2019 21:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), false, col5,
+				LocalDateTime.parse("02/11/2019 21:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), false, col9,
 				v3, null);
 		ReservationVehicule rv3 = new ReservationVehicule(null,
 				LocalDateTime.parse("10/05/2019 07:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
-				LocalDateTime.parse("10/05/2019 14:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), true, col4,
+				LocalDateTime.parse("10/05/2019 14:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")), true, col8,
 				v5, chauffeur1);
 		for (ReservationVehicule rv : Arrays.asList(rv1, rv2, rv3)) {
 			this.reserVehiRepo.save(rv);
@@ -176,19 +177,19 @@ public class StartupListener {
 		Annonce a1 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
 				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
 				LocalDateTime.parse("10/11/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
-				Statut.ACTIF, col4);
+				Statut.ACTIF, col8);
 		a1.setReservations(Arrays.asList(new ReservationAnnonce(a1, col2, Statut.ACTIF),
-				new ReservationAnnonce(a1, col5, Statut.ACTIF)));
+				new ReservationAnnonce(a1, col9, Statut.ACTIF)));
 		LOG.info(a1.toString());
 		Annonce a2 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
 				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
 				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
-				Statut.ACTIF, col4);
+				Statut.ACTIF, col8);
 		a2.setReservations(Arrays.asList(new ReservationAnnonce(a2, col2, Statut.ANNULE),
-				new ReservationAnnonce(a2, col5, Statut.ACTIF)));
+				new ReservationAnnonce(a2, col9, Statut.ACTIF)));
 		Annonce a3 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
 				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
-				LocalDateTime.now(), Statut.ACTIF, col4);
+				LocalDateTime.now(), Statut.ACTIF, col8);
 		for (Annonce a : Arrays.asList(a1, a2, a3)) {
 			this.annonceRepo.save(a);
 		}

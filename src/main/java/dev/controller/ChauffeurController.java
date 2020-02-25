@@ -30,7 +30,7 @@ public class ChauffeurController {
 	private ChauffeurRepo chffRepo;
 	private CollaborateurRepo collabRepo;
 
-	private static final Logger LOG = LoggerFactory.getLogger(dev.controller.VehiculeController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(dev.controller.ChauffeurController.class);
 
 	public ChauffeurController(ChauffeurRepo chffRepo, CollaborateurRepo collabRepo) {
 		this.chffRepo = chffRepo;
@@ -62,7 +62,7 @@ public class ChauffeurController {
 	 */	 
 	@RequestMapping(method = RequestMethod.GET, path = "chauffeurs")
 	public List<ChauffeurVM> getChauffeurs() {
-		LOG.info( "*** Recuperer les chauffeurs ***");
+		LOG.info( "*** Recuperer tous les chauffeurs ***");
 		List<Chauffeur> listeChauffeurs = this.chffRepo.findAll();
 		LOG.info( listeChauffeurs.get(0).toString());
 		return listeChauffeurs.stream().map(col -> new ChauffeurVM(col)).collect(Collectors.toList());
@@ -102,11 +102,22 @@ public class ChauffeurController {
 			throw new ElementNotFoundException(messageErreur);
 		}
 
-		// ??? Chauffeur chauffeur = new Chauffeur(collabOpt.get(), matricule);
-		// ??? this.chffRepo.save(chauffeur);
+		// On vérifie si le chauffeur n'existe pas
+		Optional<Chauffeur> chauffeurOpt = this.chffRepo.findByMatricule( matricule);
+		if (collabOpt.isPresent()) {
+			String messageErreur = "";			
+			messageErreur = "Chauffeur de matricule : " + matricule + " déja existant..";
+			LOG.error(messageErreur);
+			throw new ElementNotFoundException(messageErreur);
+		}
+
+		// Creer le chauffeur
+		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), "Permis B");
+		this.chffRepo.save(chauffeur);
+
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le chauffeur a été créé avec succès!");
-	}
 		
+	}	
 	/**
 	 * Permet de créer ou de modifier une réservation pour une annonce
 	 * 
@@ -145,7 +156,7 @@ public class ChauffeurController {
 			throw new ElementNotFoundException(messageErreur);
 		}
 
-		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), chffVM.getMatricule(), chffVM.getNumeroPermis());
+		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), chffVM.getNumeroPermis());
 		this.chffRepo.save(chauffeur);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le chauffeur a été créé avec succès!");
 	}

@@ -47,6 +47,13 @@ public class Collaborateur {
 	private String numeroTel;
 	/** Numéro de téléphone d'un collaborateur */
 
+	private String matricule;
+	/** Matricule d'un collaborateur */
+	
+	private String urlPhoto;
+	/** Url de la photo d'un collaborateur */
+	
+	
 	@OneToMany(mappedBy = "collaborateur", cascade = CascadeType.PERSIST)
 	private List<RoleCollaborateur> roles;
 
@@ -56,14 +63,17 @@ public class Collaborateur {
 	public Collaborateur() {
 	}
 
-	public Collaborateur(Long id, String nom, String prenom, String email, String motDePasse, String numeroTel,
-			List<RoleCollaborateur> roles) {
+	public Collaborateur(	Long 	id, 		String nom, 		String prenom, String email, 
+							String 	motDePasse, String numeroTel,	String matricule,
+							String	urlPhoto,	List<RoleCollaborateur> roles) {
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.motDePasse = motDePasse;
 		this.numeroTel = numeroTel;
+		this.matricule = matricule;
+		this.urlPhoto = urlPhoto;
 		this.roles = roles;
 	}
 
@@ -137,5 +147,33 @@ public class Collaborateur {
 	public String toString() {
 		return "Collaborateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", motDePasse="
 				+ motDePasse + ", numeroTel=" + numeroTel + "]";
+	}
+
+	/** Getter
+	 * @return the matricule
+	 */
+	public String getMatricule() {
+		return matricule;
+	}
+
+	/** Setter
+	 * @param matricule the matricule to set
+	 */
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
+	}
+
+	/** Getter
+	 * @return the urlPhoto
+	 */
+	public String getUrlPhoto() {
+		return urlPhoto;
+	}
+
+	/** Setter
+	 * @param urlPhoto the urlPhoto to set
+	 */
+	public void setUrlPhoto(String urlPhoto) {
+		this.urlPhoto = urlPhoto;
 	}
 }

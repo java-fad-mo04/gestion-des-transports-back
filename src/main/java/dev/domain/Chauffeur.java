@@ -14,9 +14,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Chauffeur extends Collaborateur {
 
-	@NotNull
-	private String matricule;
-	/** Matricule du chauffeur */
 
 	@NotNull
 	private String numeroPermis;
@@ -29,38 +26,23 @@ public class Chauffeur extends Collaborateur {
 	public Chauffeur() {
 	}
 
-	public Chauffeur(String matricule, String numeroPermis) {
-		this.matricule = matricule;
+	public Chauffeur( String numeroPermis) {
 		this.numeroPermis = numeroPermis;
 	}
 
 	public Chauffeur(Long id, String nom, String prenom, String email, String motDePasse, String numeroTel,
+			String urlPhoto,
 			List<RoleCollaborateur> roles, String matricule, String numeroPermis) {
-		super(id, nom, prenom, email, motDePasse, numeroTel, roles);
-		this.matricule = matricule;
+		super(id, nom, prenom, email, motDePasse, numeroTel, matricule, urlPhoto, roles);
 		this.numeroPermis = numeroPermis;
 	}
 
-	public Chauffeur(Collaborateur collaborateur, String matricule, String numeroPermis) {
-		this(collaborateur.getId(), collaborateur.getNom(), collaborateur.getPrenom(), collaborateur.getEmail(),
-				collaborateur.getMotDePasse(), collaborateur.getNumeroTel(), collaborateur.getRoles(), matricule,
-				numeroPermis);
+	public Chauffeur(Collaborateur collaborateur, String numeroPermis) {
+		this(	collaborateur.getId(), collaborateur.getNom(), collaborateur.getPrenom(), collaborateur.getEmail(),
+				collaborateur.getMotDePasse(), collaborateur.getNumeroTel(), collaborateur.getUrlPhoto(), collaborateur.getRoles(), 
+				collaborateur.getMatricule(), numeroPermis);
 	}
 
-	/**
-	 * @return the matricule
-	 */
-	public String getMatricule() {
-		return matricule;
-	}
-
-	/**
-	 * @param matricule
-	 *            the matricule to set
-	 */
-	public void setMatricule(String matricule) {
-		this.matricule = matricule;
-	}
 
 	/**
 	 * @return the numeroPermis
@@ -86,6 +68,6 @@ public class Chauffeur extends Collaborateur {
 	public String toString() {
 		return "Chauffeur [id=" + this.getId() + ", nom=" + this.getNom() + ", prenom=" + this.getPrenom() + ", email="
 				+ this.getEmail() + ", motDePasse=" + this.getMotDePasse() + ", numeroTel=" + this.getNumeroTel()
-				+ ", matricule=" + matricule + ", numeroPermis=" + numeroPermis + "]";
+				+ ", matricule=" + this.getMatricule() + ", numeroPermis=" + numeroPermis + "]";
 	}
 }
