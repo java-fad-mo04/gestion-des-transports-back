@@ -37,44 +37,6 @@ public class ChauffeurController {
 		this.collabRepo = collabRepo;
 	}
 
-	/** Retourne la liste des chauffeurs */
-	@RequestMapping(method = RequestMethod.GET, path = "chauffeurs1")
-	public List<ChauffeurVM> getChauffeurs() {
-		LOG.info( "*** Recuperer les chauffeurs ***");
-		List<Chauffeur> listeChauffeurs = this.chffRepo.findAll();
-		LOG.info( listeChauffeurs.get(0).toString());
-		return listeChauffeurs.stream().map(col -> new ChauffeurVM(col)).collect(Collectors.toList());
-	}
-
-	/**
-	 * Renvoie des chauffeurs commencant par matricule passé en paramètre
-	 * 
-	 * @param matricule
-	 * @return
-	 */
-	@RequestMapping(method = RequestMethod.GET, path = "chauffeurs2", params = "matricule")
-	public List<ChauffeurVM> getChauffeursFiltreParMatricule(String matricule) {
-		LOG.info( "*** Filtrer les chauffeurs par matricule : " + matricule);
-		List<Chauffeur> listeChauffeurs = this.chffRepo.findByMatriculeStartingWith( matricule);
-		return listeChauffeurs.stream().map(chauffeur -> new ChauffeurVM( chauffeur)).collect(Collectors.toList());
-	}
-	
-
-	/**
-	 * Renvoie des chauffeurs commencant par matricule, nom, prenom passés en paramètre
-	 * 
-	 * @param matricule
-	 * @return
-	 */
-	@RequestMapping(method = RequestMethod.GET, path = "chauffeursFiltres") 
-	public List<ChauffeurVM> getChauffeurFiltreParMatriculeNom( @RequestParam("matricule") 	String matricule, 
-			                                                    @RequestParam("nom") 		String nom,
-			                                                    @RequestParam("prenom") 	String prenom) {
-		LOG.info( "*** Filtrer les chauffeurs par matricule/nom/prenom : " + matricule + '/' + nom + '/' + prenom);
-		List<Chauffeur> listeChauffeurs = this.chffRepo.findByMatriculeStartingWithAndNomStartingWithAndPrenomStartingWith( matricule, nom, prenom);
-		return listeChauffeurs.stream().map(chauffeur -> new ChauffeurVM( chauffeur)).collect(Collectors.toList());
-	}
-	
 	/**
 	 * Renvoie un chauffeur spécifique à partir de son id
 	 * 
@@ -91,8 +53,60 @@ public class ChauffeurController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new ChauffeurVM(chffOpt.get()));
 	}
+	
+	/** 
+	 * Retourne la liste de tous les chauffeurs 
+	 * 
+	 * @param 
+	 * @return
+	 */	 
+	@RequestMapping(method = RequestMethod.GET, path = "chauffeurs")
+	public List<ChauffeurVM> getChauffeurs() {
+		LOG.info( "*** Recuperer les chauffeurs ***");
+		List<Chauffeur> listeChauffeurs = this.chffRepo.findAll();
+		LOG.info( listeChauffeurs.get(0).toString());
+		return listeChauffeurs.stream().map(col -> new ChauffeurVM(col)).collect(Collectors.toList());
+	}
 
+	/**
+	 * Renvoie de tous les  chauffeurs commencant par matricule, nom, prenom passés en paramètre
+	 * 
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "chauffeursFiltres") 
+	public List<ChauffeurVM> getChauffeurFiltreParMatriculeNom( @RequestParam("matricule") 	String matricule, 
+			                                                    @RequestParam("nom") 		String nom,
+			                                                    @RequestParam("prenom") 	String prenom) {
+		LOG.info( "*** Filtrer les chauffeurs par matricule/nom/prenom : " + matricule + '/' + nom + '/' + prenom);
+		List<Chauffeur> listeChauffeurs = this.chffRepo.findByMatriculeStartingWithAndNomStartingWithAndPrenomStartingWith( matricule, nom, prenom);
+		return listeChauffeurs.stream().map(chauffeur -> new ChauffeurVM( chauffeur)).collect(Collectors.toList());
+	}
+	
+	/**
+	 * Cree un chauffeur à partir d'un collaborateur identifié par son matricule recue
+	 * 
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, path = "chauffeurCree") 
+	public ResponseEntity<String> createChauffeur( @RequestParam("matricule") 	String matricule) {
+		LOG.info( "*** Creer le chauffeur de matricule : " + matricule );
+		
+		// On vérifie si le collaborateur existe
+		Optional<Collaborateur> collabOpt = this.collabRepo.findByMatricule( matricule);
+		if (!collabOpt.isPresent()) {
+			String messageErreur = "";			
+			messageErreur = "Collaborateur de matricule : " + matricule + " introuvable..";
+			LOG.error(messageErreur);
+			throw new ElementNotFoundException(messageErreur);
+		}
 
+		// ??? Chauffeur chauffeur = new Chauffeur(collabOpt.get(), matricule);
+		// ??? this.chffRepo.save(chauffeur);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le chauffeur a été créé avec succès!");
+	}
+		
 	/**
 	 * Permet de créer ou de modifier une réservation pour une annonce
 	 * 
