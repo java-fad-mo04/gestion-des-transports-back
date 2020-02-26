@@ -85,7 +85,8 @@ public class StartupListener {
 		this.collaborateurRepo.save(col2);
 
 		Chauffeur col3 = new Chauffeur(null, "JEAN", "Dimitri", "d.jean@gmail.com", passwordEncoder.encode("Soleil123"),
-				"0748859586", null, "DE54869233", "154884818484");
+				"0748859586", null, "DE54869233", "154884818484",
+				"https://geeko.lesoir.be/wp-content/uploads/sites/58/2018/05/Anonymous-child-748192.jpg");
 		col3.setRoles(Arrays.asList(new RoleCollaborateur(col3, Role.ROLE_UTILISATEUR)));
 		this.chauffeurRepo.save(col3);
 
@@ -142,7 +143,6 @@ public class StartupListener {
 				Statut.ACTIF, col1);
 		a1.setReservations(Arrays.asList(new ReservationAnnonce(a1, col2, Statut.ACTIF),
 				new ReservationAnnonce(a1, col5, Statut.ACTIF)));
-		LOG.info(a1.toString());
 		Annonce a2 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
 				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
 				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
@@ -156,9 +156,31 @@ public class StartupListener {
 				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
 				LocalDateTime.parse("05/03/2020 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
 				Statut.ACTIF, col1);
-		for (Annonce a : Arrays.asList(a1, a2, a3, a4)) {
+		Annonce a5 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
+				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
+				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
+				Statut.ACTIF, col1);
+		Annonce a6 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
+				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
+				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
+				Statut.ACTIF, col1);
+		Annonce a7 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
+				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
+				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
+				Statut.ACTIF, col1);
+		Annonce a8 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
+				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
+				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
+				Statut.ACTIF, col1);
+		Annonce a9 = new Annonce(null, "43 bis Avenue d'Albi Blaye-les-mines 81400",
+				"DIGINAMIC 297 rue Maurice Béjart, 34080 Montpellier", "325 ECB 19", "Citroën", "Xantia", 4,
+				LocalDateTime.parse("17/12/2019 05:00", DateTimeFormatter.ofPattern("dd/MM/yyyy' 'HH:mm")),
+				Statut.ACTIF, col1);
+		for (Annonce a : Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9)) {
 			this.annonceRepo.save(a);
 		}
+
+		LOG.info("Jeu de données créé");
 
 		/*
 		 * List<ReservationVehicule> listeResv =
