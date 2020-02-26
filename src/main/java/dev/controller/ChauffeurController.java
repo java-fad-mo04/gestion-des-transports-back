@@ -102,15 +102,16 @@ public class ChauffeurController {
 			throw new ElementNotFoundException(messageErreur);
 		}
 
-		// On vérifie si le chauffeur n'existe pas
-		Optional<Chauffeur> chauffeurOpt = this.chffRepo.findByMatricule( matricule);
-		if (collabOpt.isPresent()) {
+		// On vérifie si le chauffeur n'a pas déja été créé
+		Optional<Chauffeur> chauffeurOpt = this.chffRepo.findById( collabOpt.get().getId());
+		if (chauffeurOpt.isPresent()) {
 			String messageErreur = "";			
 			messageErreur = "Chauffeur de matricule : " + matricule + " déja existant..";
 			LOG.error(messageErreur);
 			throw new ElementNotFoundException(messageErreur);
 		}
 
+		LOG.info( ">>>> Creer le chauffeur de matricule : " + matricule );
 		// Creer le chauffeur
 		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), "Permis B");
 		this.chffRepo.save(chauffeur);
