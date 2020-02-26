@@ -99,7 +99,9 @@ public class ChauffeurController {
 			String messageErreur = "";			
 			messageErreur = "Collaborateur de matricule : " + matricule + " introuvable..";
 			LOG.error(messageErreur);
-			throw new ElementNotFoundException(messageErreur);
+			//throw new ElementNotFoundException(messageErreur);
+			return ResponseEntity.status(HttpStatus.CONFLICT).body( messageErreur);
+			
 		}
 
 		// On vérifie si le chauffeur n'a pas déja été créé
@@ -108,15 +110,17 @@ public class ChauffeurController {
 			String messageErreur = "";			
 			messageErreur = "Chauffeur de matricule : " + matricule + " déja existant..";
 			LOG.error(messageErreur);
-			throw new ElementNotFoundException(messageErreur);
+			//throw new ElementNotFoundException(messageErreur);
+			return ResponseEntity.status(HttpStatus.CONFLICT).body( messageErreur);
+			
 		}
 
 		LOG.info( ">>>> Creer le chauffeur de matricule : " + matricule );
 		// Creer le chauffeur
-		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), "Permis B");
+		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), "Permis_Pro");
 		this.chffRepo.save(chauffeur);
 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le chauffeur a été créé avec succès!");
+		return ResponseEntity.status(HttpStatus.OK).body("Le chauffeur a été créé avec succès!");
 		
 	}	
 	/**
