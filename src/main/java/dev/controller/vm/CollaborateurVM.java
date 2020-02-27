@@ -18,21 +18,22 @@ public class CollaborateurVM {
 	private String nom;
 	private String prenom;
 	private String numeroTel;
+	private String urlPhoto;
 	private List<Role> roles = new ArrayList<>();
 
 	public CollaborateurVM() {
 	}
 
-	public CollaborateurVM(Collaborateur collaborateur) {
-		if (collaborateur != null) {
-			this.id = collaborateur.getId();
-			this.email = collaborateur.getEmail();
-			this.nom = collaborateur.getNom();
-			this.prenom = collaborateur.getPrenom();
-			this.numeroTel = collaborateur.getNumeroTel();
-			this.roles = collaborateur.getRoles().stream().map(roleCollaborateur -> roleCollaborateur.getRole())
-					.collect(Collectors.toList());
-		}
+	public CollaborateurVM(Collaborateur col) {
+		this.id = col.getId();
+		this.email = col.getEmail();
+		this.nom = col.getNom();
+		this.prenom = col.getPrenom();
+		this.numeroTel = col.getNumeroTel();
+		this.urlPhoto = col.getUrlPhoto();
+		this.roles = col.getRoles().stream().map(roleCollaborateur -> roleCollaborateur.getRole())
+				.collect(Collectors.toList());
+
 	}
 
 	public Collaborateur toCollaborateur() {
@@ -95,4 +96,19 @@ public class CollaborateurVM {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
+	/** Getter
+	 * @return the urlPhoto
+	 */
+	public String getUrlPhoto() {
+		return urlPhoto;
+	}
+
+	/** Setter
+	 * @param urlPhoto the urlPhoto to set
+	 */
+	public void setUrlPhoto(String urlPhoto) {
+		this.urlPhoto = urlPhoto;
+	}
+
 }
