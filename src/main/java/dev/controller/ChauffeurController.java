@@ -162,6 +162,7 @@ public class ChauffeurController {
 		}
 
 		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), chffVM.getNumeroPermis());
+
 		this.chffRepo.save(chauffeur);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le chauffeur a été créé avec succès!");
 	}

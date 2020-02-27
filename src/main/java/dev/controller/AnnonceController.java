@@ -44,15 +44,35 @@ public class AnnonceController {
 	}
 
 	/** Retourne une annonce à partir de son id */
-	@RequestMapping(method = RequestMethod.GET, path = "annonce", params = "aid")
-	public Annonce get(Long aid) {
+	@RequestMapping(method = RequestMethod.GET, path = "annonce", params = "id")
+	public AnnonceVM get(Long aid) {
 		Optional<Annonce> annOpt = this.annRepo.findById(aid);
 		if (!annOpt.isPresent()) {
 			String messageErreur = "Annonce d'id " + aid + " introuvable..";
 			LOG.error(messageErreur);
 			throw new ElementNotFoundException(messageErreur);
 		}
-		return annOpt.get();
+		return new AnnonceVM(annOpt.get());
+	}
+
+	/** Retourne les annonces d'un collaborateur dont l'id est donné */
+	@RequestMapping(method = RequestMethod.GET, path = "annonces", params = "cid")
+	public List<AnnonceVM> getByCollaborateur(Long cid) {
+		// Vérification des paramètres
+		if (cid == null || cid <= 0) {
+			String messageErreur = "Identifiant manquant ou incorrect";
+			LOG.error(messageErreur);
+			throw new BadRequestException(messageErreur);
+		}
+		// On vérifie si le collaborateur existe
+		Optional<Collaborateur> collabOpt = this.collRepo.findById(cid);
+		if (!collabOpt.isPresent()) {
+			String messageErreur = "Collaborateur d'id " + cid + " introuvable..";
+			LOG.error(messageErreur);
+			throw new ElementNotFoundException(messageErreur);
+		}
+		List<Annonce> listeAnnonces = this.annRepo.findAllByCollaborateur(collabOpt.get());
+		return listeAnnonces.stream().map(annonce -> new AnnonceVM(annonce)).collect(Collectors.toList());
 	}
 
 	/** Retourne la liste des annonces */

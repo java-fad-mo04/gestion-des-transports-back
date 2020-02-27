@@ -11,7 +11,9 @@ public class ReservationAnnonceVM {
 
 	private Long id;
 	private Long annonceId;
+	private AnnonceVM annonceDetails;
 	private Long collaborateurId;
+	private CollaborateurVM collaborateurDetails;
 	private Statut statut;
 
 	/**
@@ -23,11 +25,15 @@ public class ReservationAnnonceVM {
 
 	}
 
-	public ReservationAnnonceVM(ReservationAnnonce resAnnonce) {
-		this.id = resAnnonce.getId();
-		this.annonceId = resAnnonce.getAnnonce().getId();
-		this.collaborateurId = resAnnonce.getCollaborateur().getId();
-		this.statut = resAnnonce.getStatut();
+	public ReservationAnnonceVM(ReservationAnnonce reservationAnnonce) {
+		if (reservationAnnonce != null) {
+			this.id = reservationAnnonce.getId();
+			this.annonceId = reservationAnnonce.getAnnonce().getId();
+			this.annonceDetails = new AnnonceVM(reservationAnnonce.getAnnonce());
+			this.collaborateurId = reservationAnnonce.getCollaborateur().getId();
+			this.collaborateurDetails = new CollaborateurVM(reservationAnnonce.getCollaborateur());
+			this.statut = reservationAnnonce.getStatut();
+		}
 	}
 
 	/**
@@ -88,6 +94,36 @@ public class ReservationAnnonceVM {
 	 */
 	public void setCollaborateurId(Long collaborateurId) {
 		this.collaborateurId = collaborateurId;
+	}
+
+	/**
+	 * @return the annonceDetails
+	 */
+	public AnnonceVM getAnnonceDetails() {
+		return annonceDetails;
+	}
+
+	/**
+	 * @param annonceDetails
+	 *            the annonceDetails to set
+	 */
+	public void setAnnonceDetails(AnnonceVM annonceDetails) {
+		this.annonceDetails = annonceDetails;
+	}
+
+	/**
+	 * @return the collaborateurDetails
+	 */
+	public CollaborateurVM getCollaborateurDetails() {
+		return collaborateurDetails;
+	}
+
+	/**
+	 * @param collaborateurDetails
+	 *            the collaborateurDetails to set
+	 */
+	public void setCollaborateurDetails(CollaborateurVM collaborateurDetails) {
+		this.collaborateurDetails = collaborateurDetails;
 	}
 
 	/*

@@ -33,19 +33,20 @@ public class CollaborateurVM {
 		this.urlPhoto = col.getUrlPhoto();
 		this.roles = col.getRoles().stream().map(roleCollaborateur -> roleCollaborateur.getRole())
 				.collect(Collectors.toList());
+
 	}
 
 	public Collaborateur toCollaborateur() {
-		Collaborateur col = new Collaborateur();
-		col.setId(this.id);
-		col.setEmail(this.email);
-		col.setNom(this.nom);
-		col.setPrenom(this.prenom);
-		col.setNumeroTel(this.numeroTel);
-		List<RoleCollaborateur> rolesCollaborateur = this.roles.stream().map(role -> new RoleCollaborateur(col, role))
-				.collect(Collectors.toList());
-		col.setRoles(rolesCollaborateur);
-		return col;
+		Collaborateur collaborateur = new Collaborateur();
+		collaborateur.setId(this.id);
+		collaborateur.setEmail(this.email);
+		collaborateur.setNom(this.nom);
+		collaborateur.setPrenom(this.prenom);
+		collaborateur.setNumeroTel(this.numeroTel);
+		List<RoleCollaborateur> rolesCollaborateur = this.roles.stream()
+				.map(role -> new RoleCollaborateur(collaborateur, role)).collect(Collectors.toList());
+		collaborateur.setRoles(rolesCollaborateur);
+		return collaborateur;
 	}
 
 	public Long getId() {

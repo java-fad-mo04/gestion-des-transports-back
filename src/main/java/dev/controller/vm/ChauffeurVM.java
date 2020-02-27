@@ -14,6 +14,7 @@ public class ChauffeurVM extends CollaborateurVM {
 
 	private String matricule;
 	private String numeroPermis;
+	private String photoUrl;
 
 	public ChauffeurVM() {
 
@@ -21,8 +22,11 @@ public class ChauffeurVM extends CollaborateurVM {
 
 	public ChauffeurVM(Chauffeur chauffeur) {
 		super(chauffeur);
-		this.matricule = chauffeur.getMatricule();
-		this.numeroPermis = chauffeur.getNumeroPermis();
+		if (chauffeur != null) {
+			this.matricule = chauffeur.getMatricule();
+			this.numeroPermis = chauffeur.getNumeroPermis();
+			this.photoUrl = chauffeur.getPhotoUrl();
+		}
 	}
 
 	public Chauffeur toChauffeur() {
@@ -34,6 +38,7 @@ public class ChauffeurVM extends CollaborateurVM {
 		ch.setNumeroTel(this.getNumeroTel());
 		ch.setMatricule(this.matricule);
 		ch.setNumeroPermis(this.numeroPermis);
+		ch.setPhotoUrl(this.photoUrl);
 		List<RoleCollaborateur> rolesCollegue = this.getRoles().stream().map(role -> new RoleCollaborateur(ch, role))
 				.collect(Collectors.toList());
 		ch.setRoles(rolesCollegue);
@@ -54,6 +59,14 @@ public class ChauffeurVM extends CollaborateurVM {
 
 	public void setNumeroPermis(String numeroPermis) {
 		this.numeroPermis = numeroPermis;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
 	}
 
 }
