@@ -53,76 +53,79 @@ public class ChauffeurController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new ChauffeurVM(chffOpt.get()));
 	}
-	
-	/** 
-	 * Retourne la liste de tous les chauffeurs 
+
+	/**
+	 * Retourne la liste de tous les chauffeurs
 	 * 
-	 * @param 
+	 * @param
 	 * @return
-	 */	 
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "chauffeurs")
 	public List<ChauffeurVM> getChauffeurs() {
-		LOG.info( "*** Recuperer tous les chauffeurs ***");
+		LOG.info("*** Recuperer tous les chauffeurs ***");
 		List<Chauffeur> listeChauffeurs = this.chffRepo.findAll();
-		LOG.info( listeChauffeurs.get(0).toString());
+		LOG.info(listeChauffeurs.get(0).toString());
 		return listeChauffeurs.stream().map(col -> new ChauffeurVM(col)).collect(Collectors.toList());
 	}
 
 	/**
-	 * Renvoie de tous les  chauffeurs commencant par matricule, nom, prenom passés en paramètre
+	 * Renvoie de tous les chauffeurs commencant par matricule, nom, prenom
+	 * passés en paramètre
 	 * 
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "chauffeursFiltres") 
-	public List<ChauffeurVM> getChauffeurFiltreParMatriculeNom( @RequestParam("matricule") 	String matricule, 
-			                                                    @RequestParam("nom") 		String nom,
-			                                                    @RequestParam("prenom") 	String prenom) {
-		LOG.info( "*** Filtrer les chauffeurs par matricule/nom/prenom : " + matricule + '/' + nom + '/' + prenom);
-		List<Chauffeur> listeChauffeurs = this.chffRepo.findByMatriculeStartingWithAndNomStartingWithAndPrenomStartingWith( matricule, nom, prenom);
-		return listeChauffeurs.stream().map(chauffeur -> new ChauffeurVM( chauffeur)).collect(Collectors.toList());
+	@RequestMapping(method = RequestMethod.GET, path = "chauffeursFiltres")
+	public List<ChauffeurVM> getChauffeurFiltreParMatriculeNom(@RequestParam("matricule") String matricule,
+			@RequestParam("nom") String nom, @RequestParam("prenom") String prenom) {
+		LOG.info("*** Filtrer les chauffeurs par matricule/nom/prenom : " + matricule + '/' + nom + '/' + prenom);
+		List<Chauffeur> listeChauffeurs = this.chffRepo
+				.findByMatriculeStartingWithAndNomStartingWithAndPrenomStartingWith(matricule, nom, prenom);
+		return listeChauffeurs.stream().map(chauffeur -> new ChauffeurVM(chauffeur)).collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Cree un chauffeur à partir d'un collaborateur identifié par son matricule recue
+	 * Cree un chauffeur à partir d'un collaborateur identifié par son matricule
+	 * recue
 	 * 
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST, path = "chauffeurCree") 
-	public ResponseEntity<String> createChauffeur( @RequestParam("matricule") 	String matricule) {
-		LOG.info( "*** Creer le chauffeur de matricule : " + matricule );
-		
+	@RequestMapping(method = RequestMethod.POST, path = "chauffeurCree")
+	public ResponseEntity<String> createChauffeur(@RequestParam("matricule") String matricule) {
+		LOG.info("*** Creer le chauffeur de matricule : " + matricule);
+
 		// On vérifie si le collaborateur existe
-		Optional<Collaborateur> collabOpt = this.collabRepo.findByMatricule( matricule);
+		Optional<Collaborateur> collabOpt = this.collabRepo.findByMatricule(matricule);
 		if (!collabOpt.isPresent()) {
-			String messageErreur = "";			
+			String messageErreur = "";
 			messageErreur = "Collaborateur de matricule : " + matricule + " introuvable..";
 			LOG.error(messageErreur);
-			//throw new ElementNotFoundException(messageErreur);
-			return ResponseEntity.status(HttpStatus.CONFLICT).body( messageErreur);
-			
+			// throw new ElementNotFoundException(messageErreur);
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(messageErreur);
+
 		}
 
 		// On vérifie si le chauffeur n'a pas déja été créé
-		Optional<Chauffeur> chauffeurOpt = this.chffRepo.findById( collabOpt.get().getId());
+		Optional<Chauffeur> chauffeurOpt = this.chffRepo.findById(collabOpt.get().getId());
 		if (chauffeurOpt.isPresent()) {
-			String messageErreur = "";			
+			String messageErreur = "";
 			messageErreur = "Chauffeur de matricule : " + matricule + " déja existant..";
 			LOG.error(messageErreur);
-			//throw new ElementNotFoundException(messageErreur);
-			return ResponseEntity.status(HttpStatus.CONFLICT).body( messageErreur);
-			
+			// throw new ElementNotFoundException(messageErreur);
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(messageErreur);
+
 		}
 
-		LOG.info( ">>>> Creer le chauffeur de matricule : " + matricule );
+		LOG.info(">>>> Creer le chauffeur de matricule : " + matricule);
 		// Creer le chauffeur
 		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), "Permis_Pro");
 		this.chffRepo.save(chauffeur);
 
 		return ResponseEntity.status(HttpStatus.OK).body("Le chauffeur a été créé avec succès!");
-		
-	}	
+
+	}
+
 	/**
 	 * Permet de créer ou de modifier une réservation pour une annonce
 	 * 
@@ -164,7 +167,7 @@ public class ChauffeurController {
 		Chauffeur chauffeur = new Chauffeur(collabOpt.get(), chffVM.getNumeroPermis());
 
 		this.chffRepo.save(chauffeur);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le chauffeur a été créé avec succès!");
+		return ResponseEntity.status(HttpStatus.OK).body("Le chauffeur a été créé avec succès!");
 	}
 
 }

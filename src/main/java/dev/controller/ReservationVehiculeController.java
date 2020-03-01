@@ -213,7 +213,7 @@ public class ReservationVehiculeController {
 		ReservationVehicule resv = new ReservationVehicule(resvVM.getId(), resvVM.getDateDebut(), resvVM.getDateFin(),
 				resvVM.isAvecChauffeur(), collaborateur, vehicule, chauffeur);
 		this.resvRepo.save(resv);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("La réservation a été créée avec succès!");
+		return ResponseEntity.status(HttpStatus.OK).body("La réservation a été créée avec succès!");
 	}
 
 	/**
@@ -277,7 +277,7 @@ public class ReservationVehiculeController {
 		// réservation
 		resv.setChauffeur(chauffeur);
 		this.resvRepo.save(resv);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le chauffeur a été correctement assigné.");
+		return ResponseEntity.status(HttpStatus.OK).body("Le chauffeur a été correctement assigné.");
 	}
 
 }

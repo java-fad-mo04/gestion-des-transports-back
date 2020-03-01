@@ -145,7 +145,7 @@ public class AnnonceController {
 				annVM.getDateDepart(), annVM.getStatut(), collabOpt.get());
 
 		this.annRepo.save(annonce);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("L'annonce " + annonce + " a été créée avec succès!");
+		return ResponseEntity.status(HttpStatus.OK).body("L'annonce " + annonce + " a été créée avec succès!");
 	}
 
 	/**
@@ -199,7 +199,7 @@ public class AnnonceController {
 			annonce.setStatut(statut);
 		}
 		this.annRepo.save(annonce);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("L'annonce " + annonce + " a été modifiée avec succès!");
+		return ResponseEntity.status(HttpStatus.OK).body("L'annonce " + annonce + " a été modifiée avec succès!");
 	}
 
 }
