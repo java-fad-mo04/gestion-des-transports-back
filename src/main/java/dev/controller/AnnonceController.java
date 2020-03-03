@@ -173,7 +173,7 @@ public class AnnonceController {
 		// On vérifie si l'annonce existe
 		Optional<Annonce> annOpt = this.annRepo.findById(aid);
 		if (!annOpt.isPresent()) {
-			String messageErreur = "Annonce d'id " + aid + " introuvable..";
+			String messageErreur = "Annonce d id " + aid + " introuvable..";
 			LOG.error(messageErreur);
 			throw new ElementNotFoundException(messageErreur);
 		}
