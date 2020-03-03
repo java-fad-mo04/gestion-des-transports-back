@@ -172,7 +172,7 @@ public class ReservationAnnonceController {
 			resa = new ReservationAnnonce(annonce, collaborateur, resaVM.getStatut());
 		}
 		this.resaRepo.save(resa);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("La réservation a été créée avec succès!");
+		return ResponseEntity.status(HttpStatus.OK).body("La réservation a été créée avec succès!");
 	}
 
 }

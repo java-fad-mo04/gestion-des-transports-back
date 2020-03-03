@@ -145,7 +145,7 @@ public class AnnonceController {
 				annVM.getDateDepart(), annVM.getStatut(), collabOpt.get());
 
 		this.annRepo.save(annonce);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("L'annonce " + annonce + " a été créée avec succès!");
+		return ResponseEntity.status(HttpStatus.OK).body("L'annonce " + annonce + " a été créée avec succès!");
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class AnnonceController {
 		// On vérifie si l'annonce existe
 		Optional<Annonce> annOpt = this.annRepo.findById(aid);
 		if (!annOpt.isPresent()) {
-			String messageErreur = "Annonce d'id " + aid + " introuvable..";
+			String messageErreur = "Annonce d id " + aid + " introuvable..";
 			LOG.error(messageErreur);
 			throw new ElementNotFoundException(messageErreur);
 		}
@@ -199,7 +199,7 @@ public class AnnonceController {
 			annonce.setStatut(statut);
 		}
 		this.annRepo.save(annonce);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("L'annonce " + annonce + " a été modifiée avec succès!");
+		return ResponseEntity.status(HttpStatus.OK).body("L'annonce " + annonce + " a été modifiée avec succès!");
 	}
 
 }
